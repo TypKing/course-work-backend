@@ -9,18 +9,16 @@ import javax.persistence.*;
 @Entity
 @Getter
 @Setter
-//@Accessors(chain = true)
-@Table(name = "Positions")
 @ToString
-public class PositionEntity {
+@Table(name = "Groups")
+public class GroupEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = "id", updatable = false)
     private Integer id;
 
-    private String position_name;
+    @Column(name = "access_level")
+    private Integer accessLevel;
 
-    private Integer salary;
 
 }
