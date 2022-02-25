@@ -10,15 +10,23 @@ import javax.persistence.*;
 @Setter
 @ToString
 @Accessors(chain = true)
-@Table(name = "Positions")
+@Table(name = "Monsters")
 @NoArgsConstructor
 @AllArgsConstructor
-public class Position {
+public class Monster {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer position_id;
-    private String position_name;
-    private Integer salary;
+    private Long id_monster;
+
+    @ManyToOne
+    @MapsId
+    private Types types;
+
+    @ManyToOne
+    @MapsId
+    private Rift detection_rift;
+
+    private Integer rank;
 
 }

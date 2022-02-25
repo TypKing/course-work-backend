@@ -1,8 +1,6 @@
 package com.example.courseworkbackend.entities;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -11,6 +9,8 @@ import javax.persistence.*;
 @Setter
 @ToString
 @Table(name = "Guilds")
+@NoArgsConstructor
+@AllArgsConstructor
 public class Guild {
 
     @Id

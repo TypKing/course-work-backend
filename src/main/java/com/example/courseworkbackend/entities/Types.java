@@ -8,17 +8,19 @@ import javax.persistence.*;
 @Getter
 @Setter
 @ToString
-@Table(name = "Countries")
+@Table(name = "Types")
 @NoArgsConstructor
 @AllArgsConstructor
-public class Country {
+public class Types {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id_country;
+    private Long id_type;
     private String name;
-    private Integer area;
-    private Integer population;
-    private Integer money_reserve;
+    private String description;
+    @Enumerated(EnumType.STRING)
+    private ClassType class_type;
+
+
 
 }

@@ -1,9 +1,6 @@
 package com.example.courseworkbackend.entities;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -12,11 +9,13 @@ import javax.persistence.*;
 @Setter
 @ToString
 @Table(name = "Groups")
+@NoArgsConstructor
+@AllArgsConstructor
 public class Group {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Integer id_group;
     private Integer accessLevel;
 
 

@@ -1,8 +1,6 @@
 package com.example.courseworkbackend.entities;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
@@ -12,6 +10,8 @@ import java.sql.Timestamp;
 @Setter
 @ToString
 @Table(name = "Awakeners")
+@NoArgsConstructor
+@AllArgsConstructor
 public class Awakener {
 
     @Id

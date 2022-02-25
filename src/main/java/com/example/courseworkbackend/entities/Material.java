@@ -10,15 +10,19 @@ import javax.persistence.*;
 @Setter
 @ToString
 @Accessors(chain = true)
-@Table(name = "Positions")
+@Table(name = "Materials")
 @NoArgsConstructor
 @AllArgsConstructor
-public class Position {
+public class Material {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer position_id;
-    private String position_name;
-    private Integer salary;
+    private Long id_material;
+
+    @ManyToOne
+    @MapsId
+    private Monster monster_drop;
+
+    private String name;
+    private Integer price;
 
 }
