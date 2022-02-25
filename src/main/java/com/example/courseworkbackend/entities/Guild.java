@@ -11,13 +11,16 @@ import javax.persistence.*;
 @Setter
 @ToString
 @Table(name = "Guilds")
-public class GuildEntity {
+public class Guild {
 
     @Id
-    @OneToOne
-    @PrimaryKeyJoinColumn
-    private CountryEntity id;
+    @Column(name = "id_country")
+    private Long id;
 
+    @OneToOne
+    @MapsId
+    @JoinColumn(name = "id_country")
+    private Country country;
     private String name;
 
 }

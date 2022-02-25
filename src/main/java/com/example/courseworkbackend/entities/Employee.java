@@ -12,28 +12,20 @@ import java.sql.Timestamp;
 @Setter
 @ToString
 @Table(name = "Employees")
-public class EmployeeEntity {
+public class Employee {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Integer id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id_employee;
 
-    @ManyToOne
-    @MapsId
-    private HumanEntity human;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Human human;
 
-    @ManyToOne
-    @MapsId
-    private PositionEntity position;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Position position;
 
     private Integer experience;
-
-    @Column(name = "access_level")
     private Integer accessLevel;
-
-    @Column(name = "start_time")
     private Timestamp startTime;
-
-    @Column(name = "end_time")
     private Timestamp endTime;
 }

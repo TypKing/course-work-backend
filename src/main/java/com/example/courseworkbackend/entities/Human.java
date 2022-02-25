@@ -12,23 +12,15 @@ import java.sql.Timestamp;
 @Setter
 @ToString
 @Table(name = "Humans")
-public class HumanEntity {
+public class Human {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Integer id;
-
-    @Column(name = "first_name")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id_human;
     private String firstName;
-
-    @Column(name = "last_name")
     private String lastName;
-
     private Timestamp birthday;
-
-    @ManyToOne(fetch = FetchType.EAGER)
-    @MapsId
-    @Column(name = "native_country")
-    private CountryEntity countryId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Country countryId;
 
 }

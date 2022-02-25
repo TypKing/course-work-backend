@@ -11,18 +11,14 @@ import javax.persistence.*;
 @Setter
 @ToString
 @Table(name = "Countries")
-public class CountryEntity {
+public class Country {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id_country;
-
     private String name;
-
     private Integer area;
-
     private Integer population;
-
     private Integer money_reserve;
 
 }
