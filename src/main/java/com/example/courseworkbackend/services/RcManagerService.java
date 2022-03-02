@@ -14,8 +14,16 @@ public class RcManagerService {
 
     private RecyclingCenterRepository recyclingCenterRepository;
 
-    public List<RecyclingCenter> getRcList(Country country) {
+    public List<RecyclingCenter> getRcList(Country country, Integer access) {
+        return recyclingCenterRepository.getRecyclingCenterByCountry(country.getId_country(), access);
+    }
 
+    public void addRc(RecyclingCenter recyclingCenter){
+        recyclingCenterRepository.save(recyclingCenter);
+    }
+
+    public void deleteRc(Long id){
+        recyclingCenterRepository.deleteById(id);
     }
 
 }

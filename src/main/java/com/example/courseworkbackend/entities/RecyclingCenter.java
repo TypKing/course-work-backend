@@ -29,6 +29,17 @@ public class RecyclingCenter {
     @MapsId
     private Types type;
 
+    /*
+    Было принято решение добавить поле с сылкой на страну, в которой находится центр
+    Так как для проверки нахождения разлома в стране необходимо было делать слияние трех таблиц в одну + проверку по id,
+        что дает неприемлимую вычислительную нагрузку.
+     */
+
+    @ManyToOne
+    @MapsId
+    @JoinColumn(name = "id_country")
+    private Country country;
+
     private Integer access_level;
 
 }
