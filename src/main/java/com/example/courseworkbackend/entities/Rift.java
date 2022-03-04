@@ -1,6 +1,7 @@
 package com.example.courseworkbackend.entities;
 
 import lombok.*;
+import lombok.experimental.Accessors;
 
 import javax.persistence.*;
 
@@ -11,6 +12,7 @@ import javax.persistence.*;
 @Table(name = "Rifts")
 @NoArgsConstructor
 @AllArgsConstructor
+@Accessors(chain = true)
 public class Rift {
 
     @Id

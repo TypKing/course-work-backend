@@ -8,7 +8,5 @@ import java.util.List;
 
 @Repository
 public interface EmployeeRepository extends JpaRepository<Employee, Long> {
-
-    @Override
-    List<Employee> findAllBy(Iterable<Long> longs);
+    //List<Employee> findAllById(Iterable<Long> longs);
 }
