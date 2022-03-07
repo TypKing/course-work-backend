@@ -29,6 +29,7 @@ public class AuthController {
     public LoginResponse getString(@RequestBody UserD userD){
         System.out.println(userD.toString());
         User user = userRepository.findUserByLogin(userD.getLogin());
+        System.out.println(userD);
         if (Objects.equals(user.getPassword(), userD.getPassword()))
             return new LoginResponse().setFlag(true).setRole(user.getRole());
         else
