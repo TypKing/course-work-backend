@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Objects;
+
 @RestController
 public class AuthController {
 
@@ -25,7 +27,7 @@ public class AuthController {
     public LoginResponse getString(@RequestBody UserD userD){
         System.out.println(userD.toString());
         User user = userRepository.findUserByLogin(userD.getLogin());
-        if (user.getPassword() == userD.getPassword())
+        if (Objects.equals(user.getPassword(), userD.getPassword()))
             return new LoginResponse().setFlag(true).setRole(user.getRole());
         else
             return new LoginResponse().setFlag(false);
