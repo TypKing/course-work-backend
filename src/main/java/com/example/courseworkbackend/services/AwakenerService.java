@@ -47,6 +47,7 @@ public class AwakenerService {
     }
 
     public void deleteAwakener(Long id){
+        //нужно ли удалять человека из БД при удалении пробужденного?
         awakenerRepository.deleteById(id);
     }
 
