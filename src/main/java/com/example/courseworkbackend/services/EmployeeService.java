@@ -13,7 +13,7 @@ import java.sql.Timestamp;
 
 @Service
 @RequiredArgsConstructor
-public class EmployeeManager {
+public class EmployeeService {
 
     private EmployeeRepository employeeRepository;
     private HumanRepository humanRepository;

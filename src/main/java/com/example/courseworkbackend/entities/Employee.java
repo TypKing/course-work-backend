@@ -26,6 +26,9 @@ public class Employee {
     @ManyToOne(fetch = FetchType.LAZY)
     private Position position;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Guild guild;
+
     private Integer experience;
     private Integer accessLevel;
     private Timestamp startTime;
