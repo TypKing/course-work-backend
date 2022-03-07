@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Objects;
 
+@CrossOrigin
 @RestController
 public class AuthController {
 
@@ -23,6 +24,7 @@ public class AuthController {
     @Autowired
     private UserRepository userRepository;
 
+    @CrossOrigin
     @PostMapping(value = "/post", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public LoginResponse getString(@RequestBody UserD userD){
         System.out.println(userD.toString());
@@ -32,15 +34,12 @@ public class AuthController {
         else
             return new LoginResponse().setFlag(false);
     }
-    @GetMapping(name = "/get")
+    @CrossOrigin
+    @GetMapping(name = "/message")
     public String getMess(){
         return new String("Sosi");
     }
 
 
-//    @GetMapping(value = "/get/{id}")
-//    public LoginResponse getUserById(@RequestParam Long id){
-//        User user = userRepository.findById(id);
-//    }
 
 }
