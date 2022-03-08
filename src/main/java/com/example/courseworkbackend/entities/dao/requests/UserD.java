@@ -8,4 +8,11 @@ import lombok.experimental.Accessors;
 public class UserD {
     private String login;
     private String password;
+
+    /*
+     @role используется только во время регистрации пользователя
+     */
+
+    private String role;
+
 }
