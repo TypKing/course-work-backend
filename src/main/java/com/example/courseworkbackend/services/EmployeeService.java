@@ -93,13 +93,9 @@ public class EmployeeService {
                 .setBirthday(birthday)
                 .setCountryId(countryRepository.getById(id_country));
 
-        if (!humanRepository.existsHumanByFirstNameAndLastNameAndBirthday(human)){
-            humanRepository.save(human);
+        human = humanRepository.save(human);
             return human;
-        }
-        else {
-            return null;
-        }
+
     }
 
     @Transactional
