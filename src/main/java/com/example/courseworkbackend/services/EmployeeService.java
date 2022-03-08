@@ -2,6 +2,7 @@ package com.example.courseworkbackend.services;
 
 import com.example.courseworkbackend.entities.Employee;
 import com.example.courseworkbackend.entities.Human;
+import com.example.courseworkbackend.entities.Position;
 import com.example.courseworkbackend.entities.User;
 import com.example.courseworkbackend.exceptions.NotFoundException;
 import com.example.courseworkbackend.exceptions.UserIsAlreadyExist;
@@ -120,6 +121,10 @@ public class EmployeeService {
                 .setStartTime(startTime)
                 .setEndTime(endTime);
         return  employeeRepository.save(employee);
+    }
+
+    public String getPositionNameById(Long id){
+        return  positionRepository.getById(id).getPosition_name();
     }
 
     public void deleteEmployee(Long id){
