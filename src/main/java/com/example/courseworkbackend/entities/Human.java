@@ -23,6 +23,6 @@ public class Human {
     private String lastName;
     private Timestamp birthday;
     @ManyToOne(fetch = FetchType.LAZY)
-    private Country countryId;
+    private Country country;
 
 }

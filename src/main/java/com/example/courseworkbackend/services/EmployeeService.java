@@ -2,10 +2,7 @@ package com.example.courseworkbackend.services;
 
 import com.example.courseworkbackend.entities.Employee;
 import com.example.courseworkbackend.entities.Human;
-import com.example.courseworkbackend.entities.Position;
 import com.example.courseworkbackend.entities.User;
-import com.example.courseworkbackend.exceptions.NotFoundException;
-import com.example.courseworkbackend.exceptions.UserIsAlreadyExist;
 import com.example.courseworkbackend.repositories.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -97,7 +94,7 @@ public class EmployeeService {
                 .setFirstName(firstName)
                 .setLastName(lastName)
                 .setBirthday(birthday)
-                .setCountryId(countryRepository.getById(id_country));
+                .setCountry(countryRepository.getById(id_country));
 
         human = humanRepository.save(human);
             return human;
@@ -125,12 +122,17 @@ public class EmployeeService {
         return  employeeRepository.save(employee);
     }
 
+
     public String getPositionNameById(Long id){
         return  positionRepository.getById(id).getPosition_name();
     }
 
-    public void deleteEmployee(Long id){
+    public boolean deleteEmployee(Long id){
         Employee employee = employeeRepository.getById(id);
-        if (employee.getAccessLevel() < 10) employeeRepository.deleteById(id);
+        if (employee.getAccessLevel() < 10){
+            employeeRepository.deleteById(id);
+            return true;
+        }else
+            return false;
     }
 }
