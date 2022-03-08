@@ -1,15 +1,16 @@
 package com.example.courseworkbackend.controllers;
 
 import com.example.courseworkbackend.entities.User;
-import com.example.courseworkbackend.entities.dao.requests.UserD;
+import com.example.courseworkbackend.entities.dao.requests.EmployeeD;
 import com.example.courseworkbackend.repositories.CoordinateRepository;
 import com.example.courseworkbackend.repositories.UserRepository;
 import com.example.courseworkbackend.services.CoordinatorService;
+import com.example.courseworkbackend.services.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -26,6 +27,9 @@ public class AuthController {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private EmployeeService employeeService;
+
     private HashMap<String,String> map;
 
     /*
@@ -36,7 +40,7 @@ public class AuthController {
      */
 
     @PostMapping(value = "/auth", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public Map<String, String> userAuth(@RequestBody UserD userD){
+    public Map<String, String> userAuth(@RequestBody EmployeeD userD){
         map = new HashMap<>();
         System.out.println("Проверку проходит пользователь: " + userD.getLogin());
         User userWithSameLogin = userRepository.findUserByLogin(userD.getLogin());
@@ -79,26 +83,35 @@ public class AuthController {
      */
 
     @PostMapping(value = "/registration", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public Map<String, String> userRegistration(@RequestBody UserD userD){
+    public Map<String, String> userRegistration(@RequestBody EmployeeD employeeD){
         map = new HashMap<>();
-        System.out.println("Проверку проходит регистрацию: " + userD.getLogin());
-        User userWithSameLogin = userRepository.findUserByLogin(userD.getLogin());
-        if (userWithSameLogin == null){
-            userRepository.save(
-                    new User()
-                            .setLogin(userD.getLogin())
-                            .setPassword(userD.getPassword())
-                            .setRole(userD.getRole()));
-            map.put("result", "true");
-            map.put("user-login", userD.getLogin());
-            map.put("user-password", userD.getPassword());
+        System.out.println("Проверку проходит регистрацию: " + employeeD.getLogin());
+        if (employeeD.getId_human() == null){
+            employeeService.addNewEmployee(
+                    employeeD.getFirstName(),
+                    employeeD.getLastName(),
+                    employeeD.getBirthday(),
+                    employeeD.getCountryId(),
+                    employeeD.getPositionId(),
+                    employeeD.getExperience(),
+                    employeeD.getAccessLevel(),
+                    new Timestamp(System.currentTimeMillis()),
+                    new Timestamp(System.currentTimeMillis()),
+                    employeeD.getLogin(),
+                    employeeD.getPassword()
+            );
+        }else {
+            employeeService.addExistEmployee(
+                    employeeD.getId_human(),
+                    employeeD.getPositionId(),
+                    employeeD.getExperience(),
+                    employeeD.getAccessLevel(),
+                    new Timestamp(System.currentTimeMillis()),
+                    new Timestamp(System.currentTimeMillis()),
+                    employeeD.getLogin(),
+                    employeeD.getPassword());
         }
-        else{
-            map.put("result", "false");
-            map.put("user-login", null);
-            map.put("user-password", null);
-        }
-        return map;
+        return
     }
 
 

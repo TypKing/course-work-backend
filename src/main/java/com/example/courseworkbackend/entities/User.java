@@ -16,11 +16,15 @@ import javax.persistence.*;
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    @Column(name = "id_employee")
+    private Long id_awakener;
+
     private String login;
     private String password;
-    private String role;
 
+    @OneToOne(orphanRemoval = true)
+    @MapsId
+    @JoinColumn(name = "id_employee")
+    private Employee employee;
 
 }
