@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -70,6 +71,10 @@ public class AwakenerService {
 
     public Awakener getInfoById(Long id){
         return awakenerRepository.getById(id);
+    }
+
+    public List<Awakener> getAwakenersByCountry(Long id_country){
+        return awakenerRepository.findAllByContryId(id_country);
     }
 
 }

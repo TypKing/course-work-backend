@@ -7,7 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @CrossOrigin
@@ -66,4 +68,27 @@ public class AppController {
         }
         else return null;
     }
+
+
+    @GetMapping(value = "/getAwakenerInfo/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<AwakenerD> getAwakenerList(@PathVariable(value = "id") Long countryId){
+        List <Awakener> awakeners = awakenerService.getAwakenersByCountry(countryId);
+        List <AwakenerD> response = new ArrayList<>();
+        for (Awakener awakener : awakeners) {
+            response.add(new AwakenerD()
+                    .setFirstName(awakener.getHuman().getFirstName())
+                    .setLastName(awakener.getHuman().getLastName())
+                    .setRank(awakener.getRank())
+                    .setAwakeTime(awakener.getAwakeTime())
+                    .setBirthday(awakener.getHuman().getBirthday())
+                    .setCountryId(awakener.getHuman().getCountry().getId_country())
+                    .setExperience(awakener.getExperience())
+                    .setId_guild(awakener.getGuild().getId()));
+        }
+        return response;
+    }
+
+
+
+
 }

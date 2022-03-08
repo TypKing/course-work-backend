@@ -43,13 +43,13 @@ public class AuthController {
         if (userWithSameLogin != null && Objects.equals(userWithSameLogin.getPassword(), employeeD.getPassword())){
             responseMap.put("result", "true");
             responseMap.put("role", userWithSameLogin.getEmployee().getPosition().getPosition_name());
+            responseMap.put("country_id", employeeD.getCountryId().toString());
         }
         else{
             responseMap.put("result", "false");
             responseMap.put("role", null);
-
+            responseMap.put("country_id", null);
         }
-
         return responseMap;
     }
 
