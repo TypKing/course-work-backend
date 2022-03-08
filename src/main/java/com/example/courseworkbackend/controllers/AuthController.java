@@ -89,7 +89,7 @@ public class AuthController {
     public Map<String, String> userRegistration(@RequestBody EmployeeD employeeD) {
         map = new HashMap<>();
         System.out.println("Проверку проходит регистрацию: " + employeeD.getLogin());
-
+        System.out.println(employeeD.toString());
         boolean access = false;
 
         if (employeeD.getId_human() == null) {

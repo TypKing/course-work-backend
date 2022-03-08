@@ -17,7 +17,7 @@ public class User {
 
     @Id
     @Column(name = "id_employee")
-    private Long id_awakener;
+    private Long id_user;
 
     private String login;
     private String password;

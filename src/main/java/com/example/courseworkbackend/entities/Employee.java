@@ -18,7 +18,7 @@ public class Employee {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id_employee;
+    private Long id_employee;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Human human;

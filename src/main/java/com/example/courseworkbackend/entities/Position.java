@@ -17,7 +17,7 @@ public class Position {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer position_id;
+    private Long position_id;
     private String position_name;
     private Integer salary;
 
