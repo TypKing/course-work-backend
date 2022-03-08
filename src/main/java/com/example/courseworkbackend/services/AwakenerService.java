@@ -45,9 +45,9 @@ public class AwakenerService {
                 .setBirthday(birthday)
                 .setCountry(countryRepository.getById(id_country));
 
-        if (employeeRepository.findByHuman(human) != null)
-            return false;
-        else{
+//        if (employeeRepository.findByHuman(human) != null)
+//            return false;
+//        else{
             humanRepository.save(human);
             awakenerRepository.save(
                     new Awakener()
@@ -60,11 +60,11 @@ public class AwakenerService {
             return true;
         }
 
-    }
+//    }
 
     public boolean deleteAwakener(Long id){
         awakenerRepository.deleteById(id);
-        humanRepository.deleteById(id);
+        //humanRepository.deleteById(id);
         return true;
     }
 

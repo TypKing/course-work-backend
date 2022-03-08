@@ -18,7 +18,7 @@ public class Human {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id_human;
+    private Long id_human;
     private String firstName;
     private String lastName;
     private Timestamp birthday;
