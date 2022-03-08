@@ -8,6 +8,7 @@ import com.example.courseworkbackend.exceptions.NotFoundException;
 import com.example.courseworkbackend.exceptions.UserIsAlreadyExist;
 import com.example.courseworkbackend.repositories.*;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,10 +18,15 @@ import java.sql.Timestamp;
 @RequiredArgsConstructor
 public class EmployeeService {
 
+    @Autowired
     private EmployeeRepository employeeRepository;
+    @Autowired
     private HumanRepository humanRepository;
+    @Autowired
     private CountryRepository countryRepository;
+    @Autowired
     private PositionRepository positionRepository;
+    @Autowired
     private UserRepository userRepository;
 
 
