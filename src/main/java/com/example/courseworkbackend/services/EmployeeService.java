@@ -145,6 +145,7 @@ public class EmployeeService {
         Employee employee = employeeRepository.getById(id);
         if (employee.getAccessLevel() < 10){
             employeeRepository.deleteById(id);
+            userRepository.deleteUserByEmployee(employee);
             return true;
         }else
             return false;
