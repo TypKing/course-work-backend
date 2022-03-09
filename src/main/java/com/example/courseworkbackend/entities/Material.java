@@ -16,6 +16,7 @@ import javax.persistence.*;
 public class Material {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id_material;
 
     @ManyToOne

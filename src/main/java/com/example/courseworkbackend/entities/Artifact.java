@@ -16,6 +16,7 @@ import javax.persistence.*;
 public class Artifact {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id_artifact;
 
     @ManyToOne
