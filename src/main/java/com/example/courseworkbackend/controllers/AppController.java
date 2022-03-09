@@ -2,10 +2,8 @@ package com.example.courseworkbackend.controllers;
 
 import com.example.courseworkbackend.entities.*;
 import com.example.courseworkbackend.entities.dao.requests.*;
-import com.example.courseworkbackend.services.AwakenerService;
-import com.example.courseworkbackend.services.CoordinatorService;
-import com.example.courseworkbackend.services.RcManagerService;
-import com.example.courseworkbackend.services.RegisterService;
+import com.example.courseworkbackend.entities.dao.responses.RecyclingCenterR;
+import com.example.courseworkbackend.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
