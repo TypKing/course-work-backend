@@ -7,6 +7,7 @@ import com.example.courseworkbackend.repositories.CountryRepository;
 import com.example.courseworkbackend.repositories.RecyclingCenterRepository;
 import com.example.courseworkbackend.repositories.TypesRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,9 +16,13 @@ import java.util.List;
 @RequiredArgsConstructor
 public class RcManagerService {
 
+    @Autowired
     private RecyclingCenterRepository recyclingCenterRepository;
+    @Autowired
     private CountryRepository countryRepository;
+    @Autowired
     private CoordinateRepository coordinateRepository;
+    @Autowired
     private TypesRepository typesRepository;
 
 //    public List<RecyclingCenter> getRcList(Long id_country, Integer access) {

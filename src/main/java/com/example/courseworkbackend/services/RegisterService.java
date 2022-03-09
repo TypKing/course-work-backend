@@ -3,6 +3,7 @@ package com.example.courseworkbackend.services;
 import com.example.courseworkbackend.entities.*;
 import com.example.courseworkbackend.repositories.*;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,11 +12,17 @@ import java.util.List;
 @RequiredArgsConstructor
 public class RegisterService {
 
+    @Autowired
     private final RiftRepository riftRepository;
+    @Autowired
     private final MonsterRepository monsterRepository;
+    @Autowired
     private final ArtifactRepository artifactRepository;
+    @Autowired
     private final CoordinateRepository coordinateRepository;
+    @Autowired
     private final CountryRepository countryRepository;
+    @Autowired
     private final TypesRepository typesRepository;
 
     public void addRift(Long id_coordinate, Long id_country, Integer rank,

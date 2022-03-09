@@ -11,5 +11,4 @@ public class AwakenerInGroupD {
 
     private Long human_id;
     private Long group_id;
-    private Timestamp joinTime;
 }

@@ -8,6 +8,7 @@ import com.example.courseworkbackend.repositories.AwakenerInGroupRepository;
 import com.example.courseworkbackend.repositories.AwakenerRepository;
 import com.example.courseworkbackend.repositories.GroupRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
@@ -16,8 +17,11 @@ import java.sql.Timestamp;
 @RequiredArgsConstructor
 public class CoordinatorService {
 
+    @Autowired
     private AwakenerInGroupRepository awakenerInGroupRepository;
+    @Autowired
     private AwakenerRepository awakenerRepository;
+    @Autowired
     private GroupRepository groupRepository;
 
     public void addGroup(Integer accessLevel){
