@@ -26,7 +26,6 @@ public class RecyclingCenter {
     private Coordinate coordinate;
 
     @ManyToOne
-    @MapsId
     private Types type;
 
     /*
@@ -36,7 +35,6 @@ public class RecyclingCenter {
      */
 
     @ManyToOne
-    @MapsId
     @JoinColumn(name = "id_country")
     private Country country;
 

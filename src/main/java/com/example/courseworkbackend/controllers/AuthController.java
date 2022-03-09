@@ -38,17 +38,20 @@ public class AuthController {
 
     @PostMapping(value = "/auth", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public Map<String, String> userAuth(@RequestBody EmployeeD employeeD){
-        System.out.println("Проверку проходит пользователь: " + employeeD.getLogin());
+        responseMap = new HashMap<>();
+        System.out.println("Проверку проходит пользователь: " + employeeD.toString());
         User userWithSameLogin = userRepository.findUserByLogin(employeeD.getLogin());
         if (userWithSameLogin != null && Objects.equals(userWithSameLogin.getPassword(), employeeD.getPassword())){
             responseMap.put("result", "true");
             responseMap.put("role", userWithSameLogin.getEmployee().getPosition().getPosition_name());
-            responseMap.put("country_id", employeeD.getCountryId().toString());
-            responseMap.put("access_level", employeeD.getAccessLevel().toString());
+            responseMap.put("role_id", userWithSameLogin.getEmployee().getPosition().getPosition_id().toString());
+            responseMap.put("country_id", userWithSameLogin.getEmployee().getHuman().getCountry().getId_country().toString());
+            responseMap.put("access_level", userWithSameLogin.getEmployee().getAccessLevel().toString());
         }
         else{
             responseMap.put("result", "false");
             responseMap.put("role", null);
+            responseMap.put("role_id", null);
             responseMap.put("country_id", null);
             responseMap.put("access_level", null);
         }

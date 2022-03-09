@@ -3,6 +3,7 @@ package com.example.courseworkbackend.services;
 import com.example.courseworkbackend.entities.Country;
 import com.example.courseworkbackend.entities.RecyclingCenter;
 import com.example.courseworkbackend.entities.dao.requests.RecyclingCenterD;
+import com.example.courseworkbackend.entities.dao.responses.RecyclingCenterR;
 import com.example.courseworkbackend.repositories.CoordinateRepository;
 import com.example.courseworkbackend.repositories.CountryRepository;
 import com.example.courseworkbackend.repositories.RecyclingCenterRepository;
@@ -28,19 +29,20 @@ public class RcManagerService {
     @Autowired
     private TypesRepository typesRepository;
 
-    public List<RecyclingCenterD> getRcList(Long id_country, Integer access) {
+    public List<RecyclingCenterR> getRcList(Long id_country, Integer access) {
         List <RecyclingCenter> list = recyclingCenterRepository.getRecyclingCenterByCountry(
                 countryRepository.getById(id_country));
-        list.stream()
+        list = list.stream()
                 .filter(e -> e.getAccess_level() <= access)
                 .collect(Collectors.toList());
-        List<RecyclingCenterD> answer = new ArrayList<>();
+        List<RecyclingCenterR> answer = new ArrayList<>();
         for (RecyclingCenter recyclingCenter : list) {
-            answer.add(new RecyclingCenterD()
-                    .setCoordinateId(recyclingCenter.getCoordinate().getId_coordinate())
-                    .setTypeId(recyclingCenter.getType().getId_type())
-                    .setCountryId(recyclingCenter.getCountry().getId_country())
+            answer.add(new RecyclingCenterR()
+                    .setCoordinateName("{"+recyclingCenter.getCoordinate().getLatitude().toString() + " " + recyclingCenter.getCoordinate().getLongitude().toString()+"}")
+                    .setTypeName(recyclingCenter.getType().getName())
+                    .setCountryName(recyclingCenter.getCountry().getName())
                     .setAccess_level(recyclingCenter.getAccess_level()));
+
         }
         return answer;
     }

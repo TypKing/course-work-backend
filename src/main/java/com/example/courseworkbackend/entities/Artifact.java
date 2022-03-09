@@ -20,11 +20,9 @@ public class Artifact {
     private Long id_artifact;
 
     @ManyToOne
-    @MapsId
     private Types type;
 
     @ManyToOne
-    @MapsId
     private Rift rift;
 
     private Integer price;

@@ -11,17 +11,17 @@ import org.springframework.stereotype.Service;
 public class RegisterService {
 
     @Autowired
-    private final RiftRepository riftRepository;
+    private  RiftRepository riftRepository;
     @Autowired
-    private final MonsterRepository monsterRepository;
+    private  MonsterRepository monsterRepository;
     @Autowired
-    private final ArtifactRepository artifactRepository;
+    private  ArtifactRepository artifactRepository;
     @Autowired
-    private final CoordinateRepository coordinateRepository;
+    private  CoordinateRepository coordinateRepository;
     @Autowired
-    private final CountryRepository countryRepository;
+    private  CountryRepository countryRepository;
     @Autowired
-    private final TypesRepository typesRepository;
+    private  TypesRepository typesRepository;
 
     public void addRift(Long id_coordinate, Long id_country, Integer rank,
                         Integer accessLevel, Integer reward) {
@@ -54,6 +54,7 @@ public class RegisterService {
 
 
     public void addMonster(Long id_type, Long id_rift, Integer rank){
+        Monster monster = new Monster().setTypes(typesRepository.getById(5L)).setDetection_rift(riftRepository.getById(1L)).setRank(1);
         monsterRepository.save(
                 new Monster()
                         .setTypes(typesRepository.getById(id_type))
@@ -67,7 +68,6 @@ public class RegisterService {
                 .setType(typesRepository.getById(id_type))
                 .setRift(riftRepository.getById(id_rift))
                 .setPrice(price);
-        System.out.println(artifact.toString() + " - СОСТОЯНИЕ ПЕРЕД ДОБАВЛЕНИЕМ В БД");
         artifactRepository.save(artifact);
     }
 

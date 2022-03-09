@@ -2,6 +2,7 @@ package com.example.courseworkbackend.controllers;
 
 import com.example.courseworkbackend.entities.*;
 import com.example.courseworkbackend.entities.dao.requests.*;
+import com.example.courseworkbackend.entities.dao.responses.RecyclingCenterR;
 import com.example.courseworkbackend.services.AwakenerService;
 import com.example.courseworkbackend.services.CoordinatorService;
 import com.example.courseworkbackend.services.RcManagerService;
@@ -84,8 +85,9 @@ public class AppController {
 
 
 
-    @GetMapping(value = "/getAwakenerInfo/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/getAwakenersInfo/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<AwakenerD> getAwakenerList(@PathVariable(value = "id") Long countryId){
+        System.out.println(countryId);
         List <Awakener> awakeners = awakenerService.getAwakenersByCountry(countryId);
         List <AwakenerD> response = new ArrayList<>();
         for (Awakener awakener : awakeners) {
@@ -99,12 +101,16 @@ public class AppController {
                     .setExperience(awakener.getExperience())
                     .setId_guild(awakener.getGuild().getId()));
         }
+        System.out.println(response.size());
+
         return response;
     }
 
     @PostMapping(value = "/createGroup", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public Map<String, String> createGroup(@RequestBody GroupD groupD){
         responseMap = new HashMap<>();
+        System.out.println(groupD);
+
         coordinatorService.addGroup(groupD.getAccessLevel());
         responseMap.put("result", "true");
         return responseMap;
@@ -122,11 +128,15 @@ public class AppController {
     @PostMapping(value = "/removeAwakenerFromGroup", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public Map<String, String> removeAwakenerFromGroup(@RequestBody AwakenerInGroupD awakenerInGroupD){
         responseMap = new HashMap<>();
-        coordinatorService.removeAwakenerFromGroup(awakenerInGroupD.getHuman_id(), awakenerInGroupD.getGroup_id());
-        responseMap.put("result", "true");
-        return responseMap;
+        try {
+            coordinatorService.removeAwakenerFromGroup(awakenerInGroupD.getHuman_id(), awakenerInGroupD.getGroup_id());
+            responseMap.put("result", "true");
+            return responseMap;
+        }catch (Exception e){
+            responseMap.put("result", "false");
+            return responseMap;
+        }
     }
-
 
     @PostMapping(value = "/addArtifactOrMonsterType", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public Map<String, String> addArtifactOrMonsterType(@RequestBody TypesD typesD){
@@ -139,6 +149,7 @@ public class AppController {
     @PostMapping(value = "/addArtifact", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public Map<String, String> addArtifact(@RequestBody ArtifactD artifactD){
         responseMap = new HashMap<>();
+        System.out.println(artifactD.toString());
         registerService.addArtifact(artifactD.getId_type(), artifactD.getId_rift(), artifactD.getPrice());
         responseMap.put("result", "true");
         return responseMap;
@@ -155,6 +166,11 @@ public class AppController {
     @PostMapping(value = "/addRift", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public Map<String, String> addRift(@RequestBody RiftD riftD){
         responseMap = new HashMap<>();
+        System.out.println();
+        System.out.println();
+        System.out.println(riftD.toString());
+        System.out.println();
+        System.out.println();
         registerService.addRift(riftD.getCoordinateId(), riftD.getCountryId(), riftD.getRank(), riftD.getAccessLevel(),
                 riftD.getReward());
         responseMap.put("result", "true");
@@ -164,6 +180,9 @@ public class AppController {
     @PostMapping(value = "/addRc", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public Map<String, String> addRc(@RequestBody RecyclingCenterD recyclingCenterD){
         responseMap = new HashMap<>();
+        System.out.println();
+        System.out.println(recyclingCenterD);
+        System.out.println();
         rcManagerService.addRc(recyclingCenterD.getCoordinateId(), recyclingCenterD.getTypeId(), recyclingCenterD.getCountryId(),
                 recyclingCenterD.getAccess_level());
         responseMap.put("result", "true");
@@ -185,10 +204,12 @@ public class AppController {
     }
 
     @GetMapping(value = "/getRcInfo/{id_country}/{access_level}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<RecyclingCenterD> getAwakenerList(@PathVariable(value = "id") Long countryId,
-                                                 @PathVariable(value = "access_level") Integer access_level){
+    public List<RecyclingCenterR> getAwakenerList(@PathVariable(value = "id_country") Long countryId,
+                                                  @PathVariable(value = "access_level") Integer access_level){
         return rcManagerService.getRcList(countryId, access_level);
     }
+
+
 
 
 

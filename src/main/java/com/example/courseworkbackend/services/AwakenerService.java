@@ -74,7 +74,7 @@ public class AwakenerService {
     }
 
     public List<Awakener> getAwakenersByCountry(Long id_country){
-        return awakenerRepository.findAllByContryId(id_country);
+        return awakenerRepository.findAllByCountryId(id_country);
     }
 
 }
