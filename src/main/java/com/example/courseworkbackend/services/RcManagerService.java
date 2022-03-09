@@ -25,9 +25,9 @@ public class RcManagerService {
     @Autowired
     private TypesRepository typesRepository;
 
-//    public List<RecyclingCenter> getRcList(Long id_country, Integer access) {
-//        return recyclingCenterRepository.getRecyclingCenterById(id_country, access);
-//    }
+    public List<RecyclingCenter> getRcList(Long id_country, Integer access) {
+        return recyclingCenterRepository.getRecyclingCenterById(id_country, access);
+    }
 
     public void addRc(Long id_coordinate, Long id_type, Long id_country, Integer accessLevel){
         recyclingCenterRepository.save(

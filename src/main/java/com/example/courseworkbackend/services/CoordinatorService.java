@@ -39,6 +39,17 @@ public class CoordinatorService {
                         .setJoinTime(join_time).setEndTime(null));
     }
 
+    public void removeAwakenerFromGroup(Long id_human, Long id_group){
+        Group group = groupRepository.getById(id_group);
+        Awakener awakener = awakenerRepository.getById(id_human);
+
+        AwakenerInGroup awakenerInGroup = awakenerInGroupRepository.getById(
+                new  AwakenerInGroupKey().setGroup_id(group).setHuman_id(awakener.getHuman()));
+        awakenerInGroup.setEndTime(new Timestamp(System.currentTimeMillis()));
+
+        awakenerInGroupRepository.save(awakenerInGroup);
+    }
+
     
 
 }

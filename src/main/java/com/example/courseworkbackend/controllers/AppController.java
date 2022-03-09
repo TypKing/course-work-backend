@@ -114,6 +114,17 @@ public class AppController {
         return responseMap;
     }
 
+    @PostMapping(value = "/removeAwakenerFromGroup", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public Map<String, String> removeAwakenerFromGroup(@RequestBody AwakenerInGroupD awakenerInGroupD){
+        responseMap = new HashMap<>();
+        coordinatorService.removeAwakenerFromGroup(awakenerInGroupD.getHuman_id(), awakenerInGroupD.getGroup_id());
+        responseMap.put("result", "true");
+        return responseMap;
+    }
+
+
+
+
 
 
 

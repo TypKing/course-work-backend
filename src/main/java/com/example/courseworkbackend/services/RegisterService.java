@@ -37,6 +37,8 @@ public class RegisterService {
         );
     }
 
+
+
     public void addMonster(Long id_type, Long id_rift, Integer rank){
         monsterRepository.save(
                 new Monster()
