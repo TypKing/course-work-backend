@@ -37,6 +37,14 @@ public class RegisterService {
         );
     }
 
+    public void setArtifactOrMonsterType(String name, String description, String classType){
+        typesRepository.save(
+            new Types()
+                    .setName(name)
+                    .setDescription(description)
+                    .setClass_type(ClassType.getClassType(classType)));
+    }
+
 
 
     public void addMonster(Long id_type, Long id_rift, Integer rank){

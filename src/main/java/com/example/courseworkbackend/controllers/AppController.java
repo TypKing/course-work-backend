@@ -1,12 +1,17 @@
 package com.example.courseworkbackend.controllers;
 
 import com.example.courseworkbackend.entities.Awakener;
+import com.example.courseworkbackend.entities.ClassType;
 import com.example.courseworkbackend.entities.Group;
+import com.example.courseworkbackend.entities.Types;
 import com.example.courseworkbackend.entities.dao.requests.AwakenerD;
 import com.example.courseworkbackend.entities.dao.requests.AwakenerInGroupD;
 import com.example.courseworkbackend.entities.dao.requests.GroupD;
+import com.example.courseworkbackend.entities.dao.requests.TypesD;
 import com.example.courseworkbackend.services.AwakenerService;
 import com.example.courseworkbackend.services.CoordinatorService;
+import com.example.courseworkbackend.services.RcManagerService;
+import com.example.courseworkbackend.services.RegisterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -26,6 +31,12 @@ public class AppController {
 
     @Autowired
     private CoordinatorService coordinatorService;
+
+    @Autowired
+    private RcManagerService rcManagerService;
+
+    @Autowired
+    private RegisterService registerService;
 
     private HashMap<String, String> responseMap;
 
@@ -121,6 +132,17 @@ public class AppController {
         responseMap.put("result", "true");
         return responseMap;
     }
+
+
+    @PostMapping(value = "/addArtifactOrMonsterType", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public String addArtifactOrMonsterType(@RequestBody TypesD typesD){
+        responseMap = new HashMap<>();
+        registerService.setArtifactOrMonsterType(typesD.getName(), typesD.getDescription(), typesD.getClassTypeName());
+        return "true";
+    }
+
+
+
 
 
 

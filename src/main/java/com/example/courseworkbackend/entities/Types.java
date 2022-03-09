@@ -1,6 +1,7 @@
 package com.example.courseworkbackend.entities;
 
 import lombok.*;
+import lombok.experimental.Accessors;
 
 import javax.persistence.*;
 
@@ -11,6 +12,7 @@ import javax.persistence.*;
 @Table(name = "Types")
 @NoArgsConstructor
 @AllArgsConstructor
+@Accessors(chain = true)
 public class Types {
 
     @Id
@@ -20,7 +22,5 @@ public class Types {
     private String description;
     @Enumerated(EnumType.STRING)
     private ClassType class_type;
-
-
 
 }
