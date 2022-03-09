@@ -4,10 +4,7 @@ import com.example.courseworkbackend.entities.Awakener;
 import com.example.courseworkbackend.entities.ClassType;
 import com.example.courseworkbackend.entities.Group;
 import com.example.courseworkbackend.entities.Types;
-import com.example.courseworkbackend.entities.dao.requests.AwakenerD;
-import com.example.courseworkbackend.entities.dao.requests.AwakenerInGroupD;
-import com.example.courseworkbackend.entities.dao.requests.GroupD;
-import com.example.courseworkbackend.entities.dao.requests.TypesD;
+import com.example.courseworkbackend.entities.dao.requests.*;
 import com.example.courseworkbackend.services.AwakenerService;
 import com.example.courseworkbackend.services.CoordinatorService;
 import com.example.courseworkbackend.services.RcManagerService;
@@ -135,11 +132,30 @@ public class AppController {
 
 
     @PostMapping(value = "/addArtifactOrMonsterType", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public String addArtifactOrMonsterType(@RequestBody TypesD typesD){
+    public Map<String, String> addArtifactOrMonsterType(@RequestBody TypesD typesD){
         responseMap = new HashMap<>();
         registerService.setArtifactOrMonsterType(typesD.getName(), typesD.getDescription(), typesD.getClassTypeName());
-        return "true";
+        responseMap.put("result", "true");
+        return responseMap;
     }
+
+    @PostMapping(value = "/addArtifact", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public Map<String, String> addArtifact(@RequestBody ArtifactD artifactD){
+        responseMap = new HashMap<>();
+        registerService.addArtifact(artifactD.getId_type(), artifactD.getId_rift(), artifactD.getPrice());
+        responseMap.put("result", "true");
+        return responseMap;
+    }
+
+    @PostMapping(value = "/addMonster", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public Map<String, String> addMonster(@RequestBody MonsterD monsterD){
+        responseMap = new HashMap<>();
+        registerService.addMonster(monsterD.getId_type(), monsterD.getId_rift(), monsterD.getRank());
+        responseMap.put("result", "true");
+        return responseMap;
+    }
+
+
 
 
 
