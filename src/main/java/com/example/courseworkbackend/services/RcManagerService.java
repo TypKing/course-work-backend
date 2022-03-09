@@ -2,6 +2,7 @@ package com.example.courseworkbackend.services;
 
 import com.example.courseworkbackend.entities.Country;
 import com.example.courseworkbackend.entities.RecyclingCenter;
+import com.example.courseworkbackend.entities.dao.requests.RecyclingCenterD;
 import com.example.courseworkbackend.repositories.CoordinateRepository;
 import com.example.courseworkbackend.repositories.CountryRepository;
 import com.example.courseworkbackend.repositories.RecyclingCenterRepository;
@@ -10,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -26,12 +28,20 @@ public class RcManagerService {
     @Autowired
     private TypesRepository typesRepository;
 
-    public List<RecyclingCenter> getRcList(Long id_country, Integer access) {
+    public List<RecyclingCenterD> getRcList(Long id_country, Integer access) {
         List <RecyclingCenter> list = recyclingCenterRepository.getRecyclingCenterByCountry(
                 countryRepository.getById(id_country));
-        List <RecyclingCenter> answer = list.stream()
+        list.stream()
                 .filter(e -> e.getAccess_level() <= access)
                 .collect(Collectors.toList());
+        List<RecyclingCenterD> answer = new ArrayList<>();
+        for (RecyclingCenter recyclingCenter : list) {
+            answer.add(new RecyclingCenterD()
+                    .setCoordinateId(recyclingCenter.getCoordinate().getId_coordinate())
+                    .setTypeId(recyclingCenter.getType().getId_type())
+                    .setCountryId(recyclingCenter.getCountry().getId_country())
+                    .setAccess_level(recyclingCenter.getAccess_level()));
+        }
         return answer;
     }
 

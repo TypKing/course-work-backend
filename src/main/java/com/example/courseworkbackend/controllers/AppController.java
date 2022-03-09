@@ -185,7 +185,7 @@ public class AppController {
     }
 
     @GetMapping(value = "/getRcInfo/{id_country}/{access_level}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<RecyclingCenter> getAwakenerList(@PathVariable(value = "id") Long countryId,
+    public List<RecyclingCenterD> getAwakenerList(@PathVariable(value = "id") Long countryId,
                                                  @PathVariable(value = "access_level") Integer access_level){
         return rcManagerService.getRcList(countryId, access_level);
     }
