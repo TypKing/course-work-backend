@@ -2,10 +2,7 @@ package com.example.courseworkbackend.controllers;
 
 import com.example.courseworkbackend.entities.*;
 import com.example.courseworkbackend.entities.dao.requests.*;
-import com.example.courseworkbackend.services.AwakenerService;
-import com.example.courseworkbackend.services.CoordinatorService;
-import com.example.courseworkbackend.services.RcManagerService;
-import com.example.courseworkbackend.services.RegisterService;
+import com.example.courseworkbackend.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -31,6 +28,9 @@ public class AppController {
 
     @Autowired
     private RegisterService registerService;
+
+    @Autowired
+    private EmployeeService employeeService;
 
     private HashMap<String, String> responseMap;
 
@@ -190,20 +190,26 @@ public class AppController {
         return rcManagerService.getRcList(countryId, access_level);
     }
 
+    @GetMapping(value = "/getRcInfo/{id_guild}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<Employee> getEmployeeByGuild(@PathVariable(value = "id_guild") Long id_guild){
+        return employeeService.getEmployees(id_guild);
+    }
 
 
+    @DeleteMapping(value = "/deleteEmployee/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public Map<String, String> deleteEmployee(@PathVariable(value = "id") Long id) {
+        responseMap = new HashMap<>();
+        try {
+            employeeService.deleteEmployee(id);
+            responseMap.put("result", "true");
+            return responseMap;
+        } catch (Exception e){
+            responseMap.put("result", "false");
+            return responseMap;
+        }
 
 
-
-
-
-
-
-
-
-
-
-
+    }
 
 
 }

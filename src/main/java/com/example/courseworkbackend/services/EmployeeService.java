@@ -1,15 +1,20 @@
 package com.example.courseworkbackend.services;
 
 import com.example.courseworkbackend.entities.Employee;
+import com.example.courseworkbackend.entities.Guild;
 import com.example.courseworkbackend.entities.Human;
 import com.example.courseworkbackend.entities.User;
 import com.example.courseworkbackend.repositories.*;
 import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.Timestamp;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -25,8 +30,11 @@ public class EmployeeService {
     private PositionRepository positionRepository;
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private GuildRepository guildRepository;
 
 
+    @SneakyThrows
     @Transactional
     public boolean addNewEmployee(
                 String firstName,
@@ -57,6 +65,7 @@ public class EmployeeService {
     }
 
 
+    @SneakyThrows
     @Transactional
     public boolean addExistEmployee(
             Long id_human,
@@ -122,6 +131,12 @@ public class EmployeeService {
         return  employeeRepository.save(employee);
     }
 
+    public List<Employee> getEmployees(Long guild_id){
+        return employeeRepository.getEmployeeByGuild(
+                guildRepository.getById(guild_id));
+        )
+    }
+
 
     public String getPositionNameById(Long id){
         return  positionRepository.getById(id).getPosition_name();
@@ -135,4 +150,16 @@ public class EmployeeService {
         }else
             return false;
     }
+
+    String enctyptPass(String password) throws NoSuchAlgorithmException {
+        MessageDigest messageDigest = MessageDigest.getInstance("MD5");
+        byte[] b = messageDigest.digest(password.getBytes());
+        StringBuilder stringBuilder = new StringBuilder();
+        for (byte b1 : b) {
+            stringBuilder.append(b1);
+        }
+        return stringBuilder.toString();
+
+    }
+
 }
