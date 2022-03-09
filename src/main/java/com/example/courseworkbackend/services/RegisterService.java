@@ -35,6 +35,14 @@ public class RegisterService {
         );
     }
 
+    public void closeRift(){
+
+    }
+
+    public void changeStatus(){
+
+    }
+
     public void setArtifactOrMonsterType(String name, String description, String classType){
         typesRepository.save(
             new Types()

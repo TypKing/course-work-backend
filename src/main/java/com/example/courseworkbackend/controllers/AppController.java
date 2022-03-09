@@ -53,7 +53,7 @@ public class AppController {
     }
 
     @DeleteMapping(value = "/deleteAwakener/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Map<String, String> userAuth(@PathVariable(value = "id") Long awakenerId) {
+    public Map<String, String> deleteAwakener(@PathVariable(value = "id") Long awakenerId) {
         responseMap = new HashMap<>();
         try {
             awakenerService.deleteAwakener(awakenerId);
@@ -163,6 +163,33 @@ public class AppController {
         responseMap.put("result", "true");
         return responseMap;
     }
+
+    @PostMapping(value = "/addRc", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public Map<String, String> addRc(@RequestBody RecyclingCenterD recyclingCenterD){
+        responseMap = new HashMap<>();
+        rcManagerService.addRc(recyclingCenterD.getCoordinateId(), recyclingCenterD.getTypeId(), recyclingCenterD.getCountryId(),
+                recyclingCenterD.getAccess_level());
+        responseMap.put("result", "true");
+        return responseMap;
+    }
+
+
+    @DeleteMapping(value = "/deleteRc/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public Map<String, String> deleteRc(@PathVariable(value = "id") Long rcId) {
+        responseMap = new HashMap<>();
+        try {
+            rcManagerService.deleteRc(rcId);
+            responseMap.put("result", "true");
+            return responseMap;
+        } catch (Exception e){
+            responseMap.put("result", "false");
+            return responseMap;
+        }
+
+
+    }
+
+
 
 
 
