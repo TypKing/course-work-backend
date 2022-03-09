@@ -24,7 +24,7 @@ public class Artifact {
 
     @ManyToOne
     @MapsId
-    private Rift detection_rift;
+    private Rift rift;
 
     private Integer price;
 

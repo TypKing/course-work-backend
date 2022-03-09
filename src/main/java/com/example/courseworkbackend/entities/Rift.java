@@ -26,7 +26,6 @@ public class Rift {
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Country country;
-
     private Integer rank;
     private Integer accessLevel;
     private Integer reward;

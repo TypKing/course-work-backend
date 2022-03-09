@@ -6,8 +6,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
 @RequiredArgsConstructor
 public class RegisterService {
@@ -57,12 +55,12 @@ public class RegisterService {
     }
 
     public void addArtifact(Long id_type, Long id_rift, Integer price) {
-        artifactRepository.save(
-                new Artifact()
-                        .setType(typesRepository.getById(id_type))
-                        .setDetection_rift(riftRepository.getById(id_rift))
-                        .setPrice(price)
-        );
+        Artifact artifact = new Artifact()
+                .setType(typesRepository.getById(id_type))
+                .setRift(riftRepository.getById(id_rift))
+                .setPrice(price);
+        System.out.println(artifact.toString() + " - СОСТОЯНИЕ ПЕРЕД ДОБАВЛЕНИЕМ В БД");
+        artifactRepository.save(artifact);
     }
 
     public void setMonsterTypeById(Long id, Long id_type) {

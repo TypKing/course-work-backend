@@ -155,6 +155,15 @@ public class AppController {
         return responseMap;
     }
 
+    @PostMapping(value = "/addRift", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public Map<String, String> addRift(@RequestBody RiftD riftD){
+        responseMap = new HashMap<>();
+        registerService.addRift(riftD.getCoordinateId(), riftD.getCountryId(), riftD.getRank(), riftD.getAccessLevel(),
+                riftD.getReward());
+        responseMap.put("result", "true");
+        return responseMap;
+    }
+
 
 
 
