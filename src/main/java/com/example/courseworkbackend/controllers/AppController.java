@@ -1,8 +1,12 @@
 package com.example.courseworkbackend.controllers;
 
 import com.example.courseworkbackend.entities.Awakener;
+import com.example.courseworkbackend.entities.Group;
 import com.example.courseworkbackend.entities.dao.requests.AwakenerD;
+import com.example.courseworkbackend.entities.dao.requests.AwakenerInGroupD;
+import com.example.courseworkbackend.entities.dao.requests.GroupD;
 import com.example.courseworkbackend.services.AwakenerService;
+import com.example.courseworkbackend.services.CoordinatorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -18,6 +22,9 @@ public class AppController {
 
     @Autowired
     private AwakenerService awakenerService;
+
+    @Autowired
+    private CoordinatorService coordinatorService;
 
     private HashMap<String, String> responseMap;
 
@@ -70,6 +77,7 @@ public class AppController {
     }
 
 
+
     @GetMapping(value = "/getAwakenerInfo/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<AwakenerD> getAwakenerList(@PathVariable(value = "id") Long countryId){
         List <Awakener> awakeners = awakenerService.getAwakenersByCountry(countryId);
@@ -87,6 +95,26 @@ public class AppController {
         }
         return response;
     }
+
+    @PostMapping(value = "/createGroup", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public Map<String, String> createGroup(@RequestBody GroupD groupD){
+        responseMap = new HashMap<>();
+        coordinatorService.addGroup(groupD.getAccessLevel());
+        responseMap.put("result", "true");
+        return responseMap;
+    }
+
+
+    @PostMapping(value = "/addAwakenerToGroup", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public Map<String, String> addAwakenerToGroup(@RequestBody AwakenerInGroupD awakenerInGroupD){
+        responseMap = new HashMap<>();
+        coordinatorService.addAwakenerToGroup(awakenerInGroupD.getHuman_id(), awakenerInGroupD.getGroup_id(), awakenerInGroupD.getJoinTime());
+        responseMap.put("result", "true");
+        return responseMap;
+    }
+
+
+
 
 
 

@@ -1,9 +1,7 @@
 package com.example.courseworkbackend.entities;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import lombok.experimental.Accessors;
 
 import javax.persistence.Embeddable;
 import javax.persistence.IdClass;
@@ -13,6 +11,9 @@ import java.io.Serializable;
 
 @Embeddable
 @EqualsAndHashCode
+@Accessors(chain = true)
+@Getter
+@Setter
 public class AwakenerInGroupKey implements Serializable {
 
 

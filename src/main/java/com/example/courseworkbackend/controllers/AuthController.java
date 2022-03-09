@@ -44,11 +44,13 @@ public class AuthController {
             responseMap.put("result", "true");
             responseMap.put("role", userWithSameLogin.getEmployee().getPosition().getPosition_name());
             responseMap.put("country_id", employeeD.getCountryId().toString());
+            responseMap.put("access_level", employeeD.getAccessLevel().toString());
         }
         else{
             responseMap.put("result", "false");
             responseMap.put("role", null);
             responseMap.put("country_id", null);
+            responseMap.put("access_level", null);
         }
         return responseMap;
     }
@@ -99,6 +101,7 @@ public class AuthController {
         responseMap.put("password", employeeD.getPassword());
         responseMap.put("position", employeeService.getPositionNameById(employeeD.getPositionId()));
         responseMap.put("result", result? "true":"false");
+        responseMap.put("access_level", employeeD.getAccessLevel().toString());
         return responseMap;
     }
 

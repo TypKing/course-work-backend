@@ -2,6 +2,7 @@ package com.example.courseworkbackend.entities;
 
 
 import lombok.*;
+import lombok.experimental.Accessors;
 
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
@@ -15,6 +16,7 @@ import java.sql.Timestamp;
 @Table(name = "AwakenersInGroup")
 @NoArgsConstructor
 @AllArgsConstructor
+@Accessors(chain = true)
 public class AwakenerInGroup {
 
     @EmbeddedId
