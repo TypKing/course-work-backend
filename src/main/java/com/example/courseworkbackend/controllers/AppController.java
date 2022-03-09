@@ -1,9 +1,6 @@
 package com.example.courseworkbackend.controllers;
 
-import com.example.courseworkbackend.entities.Awakener;
-import com.example.courseworkbackend.entities.ClassType;
-import com.example.courseworkbackend.entities.Group;
-import com.example.courseworkbackend.entities.Types;
+import com.example.courseworkbackend.entities.*;
 import com.example.courseworkbackend.entities.dao.requests.*;
 import com.example.courseworkbackend.services.AwakenerService;
 import com.example.courseworkbackend.services.CoordinatorService;
@@ -185,8 +182,12 @@ public class AppController {
             responseMap.put("result", "false");
             return responseMap;
         }
+    }
 
-
+    @GetMapping(value = "/getRcInfo/{id_country}/{access_level}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<RecyclingCenter> getAwakenerList(@PathVariable(value = "id") Long countryId,
+                                                 @PathVariable(value = "access_level") Integer access_level){
+        return rcManagerService.getRcList(countryId, access_level);
     }
 
 

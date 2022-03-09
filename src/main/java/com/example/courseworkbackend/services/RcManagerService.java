@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -26,7 +27,12 @@ public class RcManagerService {
     private TypesRepository typesRepository;
 
     public List<RecyclingCenter> getRcList(Long id_country, Integer access) {
-        return recyclingCenterRepository.getRecyclingCenterById(id_country, access);
+        List <RecyclingCenter> list = recyclingCenterRepository.getRecyclingCenterByCountry(
+                countryRepository.getById(id_country));
+        List <RecyclingCenter> answer = list.stream()
+                .filter(e -> e.getAccess_level() <= access)
+                .collect(Collectors.toList());
+        return answer;
     }
 
     public void addRc(Long id_coordinate, Long id_type, Long id_country, Integer accessLevel){
