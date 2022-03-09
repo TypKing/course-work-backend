@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.Map;
@@ -68,7 +70,7 @@ public class AuthController {
      */
 
     @PostMapping(value = "/registration", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public Map<String, String> userRegistration(@RequestBody EmployeeD employeeD) {
+    public Map<String, String> userRegistration(@RequestBody EmployeeD employeeD) throws NoSuchAlgorithmException {
         responseMap = new HashMap<>();
         System.out.println("Проверку проходит регистрацию: " + employeeD.getLogin());
         System.out.println(employeeD.toString());

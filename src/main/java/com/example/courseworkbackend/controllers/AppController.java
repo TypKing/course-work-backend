@@ -2,7 +2,6 @@ package com.example.courseworkbackend.controllers;
 
 import com.example.courseworkbackend.entities.*;
 import com.example.courseworkbackend.entities.dao.requests.*;
-import com.example.courseworkbackend.entities.dao.responses.RecyclingCenterR;
 import com.example.courseworkbackend.services.AwakenerService;
 import com.example.courseworkbackend.services.CoordinatorService;
 import com.example.courseworkbackend.services.RcManagerService;
@@ -32,6 +31,9 @@ public class AppController {
 
     @Autowired
     private RegisterService registerService;
+
+    @Autowired
+    private EmployeeService employeeService;
 
     private HashMap<String, String> responseMap;
 
@@ -87,7 +89,6 @@ public class AppController {
 
     @GetMapping(value = "/getAwakenersInfo/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<AwakenerD> getAwakenerList(@PathVariable(value = "id") Long countryId){
-        System.out.println(countryId);
         List <Awakener> awakeners = awakenerService.getAwakenersByCountry(countryId);
         List <AwakenerD> response = new ArrayList<>();
         for (Awakener awakener : awakeners) {
@@ -101,16 +102,12 @@ public class AppController {
                     .setExperience(awakener.getExperience())
                     .setId_guild(awakener.getGuild().getId()));
         }
-        System.out.println(response.size());
-
         return response;
     }
 
     @PostMapping(value = "/createGroup", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public Map<String, String> createGroup(@RequestBody GroupD groupD){
         responseMap = new HashMap<>();
-        System.out.println(groupD);
-
         coordinatorService.addGroup(groupD.getAccessLevel());
         responseMap.put("result", "true");
         return responseMap;
@@ -138,6 +135,7 @@ public class AppController {
         }
     }
 
+
     @PostMapping(value = "/addArtifactOrMonsterType", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public Map<String, String> addArtifactOrMonsterType(@RequestBody TypesD typesD){
         responseMap = new HashMap<>();
@@ -149,7 +147,6 @@ public class AppController {
     @PostMapping(value = "/addArtifact", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public Map<String, String> addArtifact(@RequestBody ArtifactD artifactD){
         responseMap = new HashMap<>();
-        System.out.println(artifactD.toString());
         registerService.addArtifact(artifactD.getId_type(), artifactD.getId_rift(), artifactD.getPrice());
         responseMap.put("result", "true");
         return responseMap;
@@ -166,11 +163,6 @@ public class AppController {
     @PostMapping(value = "/addRift", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public Map<String, String> addRift(@RequestBody RiftD riftD){
         responseMap = new HashMap<>();
-        System.out.println();
-        System.out.println();
-        System.out.println(riftD.toString());
-        System.out.println();
-        System.out.println();
         registerService.addRift(riftD.getCoordinateId(), riftD.getCountryId(), riftD.getRank(), riftD.getAccessLevel(),
                 riftD.getReward());
         responseMap.put("result", "true");
@@ -180,9 +172,6 @@ public class AppController {
     @PostMapping(value = "/addRc", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public Map<String, String> addRc(@RequestBody RecyclingCenterD recyclingCenterD){
         responseMap = new HashMap<>();
-        System.out.println();
-        System.out.println(recyclingCenterD);
-        System.out.println();
         rcManagerService.addRc(recyclingCenterD.getCoordinateId(), recyclingCenterD.getTypeId(), recyclingCenterD.getCountryId(),
                 recyclingCenterD.getAccess_level());
         responseMap.put("result", "true");
@@ -209,22 +198,26 @@ public class AppController {
         return rcManagerService.getRcList(countryId, access_level);
     }
 
+    @GetMapping(value = "/getRcInfo/{id_guild}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<Employee> getEmployeeByGuild(@PathVariable(value = "id_guild") Long id_guild){
+        return employeeService.getEmployees(id_guild);
+    }
 
 
+    @DeleteMapping(value = "/deleteEmployee/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public Map<String, String> deleteEmployee(@PathVariable(value = "id") Long id) {
+        responseMap = new HashMap<>();
+        try {
+            employeeService.deleteEmployee(id);
+            responseMap.put("result", "true");
+            return responseMap;
+        } catch (Exception e){
+            responseMap.put("result", "false");
+            return responseMap;
+        }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
+    }
 
 
 }
