@@ -22,7 +22,7 @@ public class User {
     private String login;
     private String password;
 
-    @OneToOne(orphanRemoval = true)
+    @OneToOne(cascade = CascadeType.REMOVE)
     @MapsId
     @JoinColumn(name = "id_employee")
     private Employee employee;

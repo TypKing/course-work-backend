@@ -70,6 +70,7 @@ public class AppController {
         responseMap = new HashMap<>();
         Awakener awakener = awakenerService.getInfoById(awakenerId);
         if (awakener != null){
+
             return new AwakenerD()
                     .setFirstName(awakener.getHuman().getFirstName())
                     .setLastName(awakener.getHuman().getLastName())
@@ -196,7 +197,7 @@ public class AppController {
         return rcManagerService.getRcList(countryId, access_level);
     }
 
-    @GetMapping(value = "/getRcInfo/{id_guild}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/getEmployee/{id_guild}", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Employee> getEmployeeByGuild(@PathVariable(value = "id_guild") Long id_guild){
         return employeeService.getEmployees(id_guild);
     }

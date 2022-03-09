@@ -39,11 +39,11 @@ public class AuthController {
 
 
     @PostMapping(value = "/auth", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public Map<String, String> userAuth(@RequestBody EmployeeD employeeD){
+    public Map<String, String> userAuth(@RequestBody EmployeeD employeeD) throws NoSuchAlgorithmException {
         responseMap = new HashMap<>();
         System.out.println("Проверку проходит пользователь: " + employeeD.toString());
         User userWithSameLogin = userRepository.findUserByLogin(employeeD.getLogin());
-        if (userWithSameLogin != null && Objects.equals(userWithSameLogin.getPassword(), employeeD.getPassword())){
+        if (userWithSameLogin != null && Objects.equals(userWithSameLogin.getPassword(), employeeService.enctyptPass(employeeD.getPassword()))){
             responseMap.put("result", "true");
             responseMap.put("role", userWithSameLogin.getEmployee().getPosition().getPosition_name());
             responseMap.put("role_id", userWithSameLogin.getEmployee().getPosition().getPosition_id().toString());

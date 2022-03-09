@@ -56,7 +56,7 @@ public class EmployeeService {
             userRepository.save(
                     new User()
                             .setLogin(login)
-                            .setPassword(password)
+                            .setPassword(enctyptPass(password))
                             .setEmployee(employee));
             return true;
         }
@@ -143,15 +143,21 @@ public class EmployeeService {
 
     public boolean deleteEmployee(Long id){
         Employee employee = employeeRepository.getById(id);
+        System.out.println("HUI21323");
         if (employee.getAccessLevel() < 10){
-            employeeRepository.deleteById(id);
+            System.out.println("HUI");
+
             userRepository.deleteUserByEmployee(employee);
+            System.out.println("HUI2");
+            employeeRepository.deleteById(id);
+            System.out.println("HUI3");
             return true;
         }else
+            System.out.println("HUI4");
             return false;
     }
 
-    String enctyptPass(String password) throws NoSuchAlgorithmException {
+    public String enctyptPass(String password) throws NoSuchAlgorithmException {
         MessageDigest messageDigest = MessageDigest.getInstance("MD5");
         byte[] b = messageDigest.digest(password.getBytes());
         StringBuilder stringBuilder = new StringBuilder();
