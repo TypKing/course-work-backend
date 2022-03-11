@@ -22,7 +22,7 @@ public class AwakenerD {
     Awakener
      */
 
-    private Long id_guild;
+    private Long guildId;
     private Integer rank;
     private Integer experience;
     private Timestamp awakeTime;

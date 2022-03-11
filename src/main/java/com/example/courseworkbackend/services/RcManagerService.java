@@ -1,8 +1,6 @@
 package com.example.courseworkbackend.services;
 
-import com.example.courseworkbackend.entities.Country;
 import com.example.courseworkbackend.entities.RecyclingCenter;
-import com.example.courseworkbackend.entities.dao.requests.RecyclingCenterD;
 import com.example.courseworkbackend.entities.dao.responses.RecyclingCenterR;
 import com.example.courseworkbackend.repositories.CoordinateRepository;
 import com.example.courseworkbackend.repositories.CountryRepository;
@@ -41,7 +39,7 @@ public class RcManagerService {
                     .setCoordinateName("{"+recyclingCenter.getCoordinate().getLatitude().toString() + " " + recyclingCenter.getCoordinate().getLongitude().toString()+"}")
                     .setTypeName(recyclingCenter.getType().getName())
                     .setCountryName(recyclingCenter.getCountry().getName())
-                    .setAccess_level(recyclingCenter.getAccess_level()));
+                    .setAccessLevel(recyclingCenter.getAccess_level()));
 
         }
         return answer;

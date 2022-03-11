@@ -11,6 +11,6 @@ public class RecyclingCenterR {
     private String coordinateName;
     private String typeName;
     private String countryName;
-    private Integer access_level;
+    private Integer accessLevel;
 
 }

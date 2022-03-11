@@ -42,7 +42,7 @@ public class AppController {
         System.out.println();
         System.out.println("Добавление проходит пробужденный: " + awakenerD.getFirstName());
         if (awakenerService.addAwakener(awakenerD.getFirstName(), awakenerD.getLastName(), awakenerD.getBirthday(),
-                awakenerD.getCountryId(), awakenerD.getId_guild(), awakenerD.getRank(), awakenerD.getExperience(),
+                awakenerD.getCountryId(), awakenerD.getGuildId(), awakenerD.getRank(), awakenerD.getExperience(),
                 awakenerD.getAwakeTime())){
             result = true;
         }
@@ -79,7 +79,7 @@ public class AppController {
                     .setBirthday(awakener.getHuman().getBirthday())
                     .setCountryId(awakener.getHuman().getCountry().getId_country())
                     .setExperience(awakener.getExperience())
-                    .setId_guild(awakener.getGuild().getId());
+                    .setGuildId(awakener.getGuild().getId());
         }
         else return null;
     }
@@ -99,7 +99,7 @@ public class AppController {
                     .setBirthday(awakener.getHuman().getBirthday())
                     .setCountryId(awakener.getHuman().getCountry().getId_country())
                     .setExperience(awakener.getExperience())
-                    .setId_guild(awakener.getGuild().getId()));
+                    .setGuildId(awakener.getGuild().getId()));
         }
         return response;
     }
