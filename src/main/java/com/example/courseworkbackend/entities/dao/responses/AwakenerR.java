@@ -17,6 +17,7 @@ public class AwakenerR {
     private String lastName;
     private Timestamp birthday;
     private Long countryId;
+    private String countryName;
 
     /*
     Awakener

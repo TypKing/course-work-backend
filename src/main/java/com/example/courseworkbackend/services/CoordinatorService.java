@@ -29,9 +29,14 @@ public class CoordinatorService {
         groupRepository.save(newGroup);
     }
 
-    public void addAwakenerToGroup(Long id_human, Long id_group, Timestamp join_time){
+    public void addAwakenerToGroup(Long id_human, Long id_group, Timestamp join_time) throws Exception {
         Group group = groupRepository.getById(id_group);
         Awakener awakener = awakenerRepository.getById(id_human);
+
+        if(awakenerInGroupRepository.findById(new AwakenerInGroupKey().setGroup_id(group).setHuman_id(awakener.getHuman())).isPresent()){
+            throw new Exception();
+        }
+
         awakenerInGroupRepository.save(
                 new AwakenerInGroup().setAwakenerInGroupKey(
                         new AwakenerInGroupKey().setGroup_id(group).setHuman_id(awakener.getHuman()))

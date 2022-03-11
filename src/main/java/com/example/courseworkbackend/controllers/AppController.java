@@ -99,7 +99,7 @@ public class AppController {
                     .setRank(awakener.getRank())
                     .setAwakeTime(awakener.getAwakeTime())
                     .setBirthday(awakener.getHuman().getBirthday())
-                    .setCountryId(awakener.getHuman().getCountry().getId_country())
+                    .setCountryName(awakener.getHuman().getCountry().getName())
                     .setExperience(awakener.getExperience())
                     .setGuildId(awakener.getGuild().getId()));
         }
@@ -118,8 +118,13 @@ public class AppController {
     @PostMapping(value = "/addAwakenerToGroup", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public Map<String, String> addAwakenerToGroup(@RequestBody AwakenerInGroupD awakenerInGroupD){
         responseMap = new HashMap<>();
-        coordinatorService.addAwakenerToGroup(awakenerInGroupD.getHuman_id(), awakenerInGroupD.getGroup_id(), new Timestamp(System.currentTimeMillis()));
-        responseMap.put("result", "true");
+        try {
+            coordinatorService.addAwakenerToGroup(awakenerInGroupD.getHuman_id(), awakenerInGroupD.getGroup_id(), new Timestamp(System.currentTimeMillis()));
+            responseMap.put("result", "true");
+        }
+        catch (Exception e){
+            responseMap.put("result", "false");
+        }
         return responseMap;
     }
 
