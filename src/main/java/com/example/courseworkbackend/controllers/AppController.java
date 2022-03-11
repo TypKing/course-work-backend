@@ -2,6 +2,7 @@ package com.example.courseworkbackend.controllers;
 
 import com.example.courseworkbackend.entities.*;
 import com.example.courseworkbackend.entities.dao.requests.*;
+import com.example.courseworkbackend.entities.dao.responses.AwakenerR;
 import com.example.courseworkbackend.entities.dao.responses.RecyclingCenterR;
 import com.example.courseworkbackend.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -87,11 +88,12 @@ public class AppController {
 
 
     @GetMapping(value = "/getAwakenersInfo/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<AwakenerD> getAwakenerList(@PathVariable(value = "id") Long countryId){
+    public List<AwakenerR> getAwakenerList(@PathVariable(value = "id") Long countryId){
         List <Awakener> awakeners = awakenerService.getAwakenersByCountry(countryId);
-        List <AwakenerD> response = new ArrayList<>();
+        List <AwakenerR> response = new ArrayList<>();
         for (Awakener awakener : awakeners) {
-            response.add(new AwakenerD()
+            response.add(new AwakenerR()
+                    .setId(awakener.getId_awakener())
                     .setFirstName(awakener.getHuman().getFirstName())
                     .setLastName(awakener.getHuman().getLastName())
                     .setRank(awakener.getRank())

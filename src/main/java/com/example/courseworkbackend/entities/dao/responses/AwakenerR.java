@@ -1,6 +1,5 @@
 package com.example.courseworkbackend.entities.dao.responses;
 
-import com.example.courseworkbackend.entities.Guild;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
@@ -13,6 +12,7 @@ public class AwakenerR {
     /*
     Human
      */
+    private Long id;
     private String firstName;
     private String lastName;
     private Timestamp birthday;
@@ -22,7 +22,7 @@ public class AwakenerR {
     Awakener
      */
 
-    private Long id_guild;
+    private Long guildId;
     private Integer rank;
     private Integer experience;
     private Timestamp awakeTime;
