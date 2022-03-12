@@ -67,18 +67,19 @@ public class AppController {
     }
 
     @GetMapping(value = "/getAwakenerInfo/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public AwakenerD getAwakenerInfoById(@PathVariable(value = "id") Long awakenerId){
+    public AwakenerR getAwakenerInfoById(@PathVariable(value = "id") Long awakenerId){
         responseMap = new HashMap<>();
         Awakener awakener = awakenerService.getInfoById(awakenerId);
         if (awakener != null){
 
-            return new AwakenerD()
+            return new AwakenerR()
                     .setFirstName(awakener.getHuman().getFirstName())
                     .setLastName(awakener.getHuman().getLastName())
                     .setRank(awakener.getRank())
                     .setAwakeTime(awakener.getAwakeTime())
                     .setBirthday(awakener.getHuman().getBirthday())
                     .setCountryId(awakener.getHuman().getCountry().getId_country())
+                    .setCountryName(awakener.getHuman().getCountry().getName())
                     .setExperience(awakener.getExperience())
                     .setGuildId(awakener.getGuild().getId());
         }
