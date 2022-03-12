@@ -3,6 +3,7 @@ package com.example.courseworkbackend.controllers;
 import com.example.courseworkbackend.entities.*;
 import com.example.courseworkbackend.entities.dao.requests.*;
 import com.example.courseworkbackend.entities.dao.responses.AwakenerR;
+import com.example.courseworkbackend.entities.dao.responses.HumanR;
 import com.example.courseworkbackend.entities.dao.responses.RecyclingCenterR;
 import com.example.courseworkbackend.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,6 +65,11 @@ public class AppController {
         }
 
 
+    }
+
+    @GetMapping(value = "/getHumansInfo", produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<HumanR> getHumansInfo(){
+        return awakenerService.getHumansList();
     }
 
     @GetMapping(value = "/getAwakenerInfo/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
