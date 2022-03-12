@@ -18,6 +18,7 @@ public class Group {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id_group;
+    private String name;
     private Integer accessLevel;
 
 }
