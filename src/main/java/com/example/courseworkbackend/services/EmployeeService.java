@@ -143,14 +143,11 @@ public class EmployeeService {
 
     public boolean deleteEmployee(Long id){
         Employee employee = employeeRepository.getById(id);
-        System.out.println("HUI21323");
         if (employee.getAccessLevel() < 10){
-            System.out.println("HUI");
-
-            userRepository.deleteUserByEmployee(employee);
-            System.out.println("HUI2");
-            employeeRepository.deleteById(id);
-            System.out.println("HUI3");
+//            userRepository.deleteUserByEmployee(employee);
+//            employeeRepository.deleteById(id);
+            employee.setEndTime(new Timestamp(System.currentTimeMillis()));
+            employeeRepository.save(employee);
             return true;
         }else
             System.out.println("HUI4");
