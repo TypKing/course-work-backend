@@ -67,9 +67,9 @@ public class AppController {
 
     }
 
-    @GetMapping(value = "/getHumansInfo", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<HumanR> getHumansInfo(){
-        return awakenerService.getHumansList();
+    @GetMapping(value = "/getHumansInfo/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<HumanR> getHumansInfo(@PathVariable(value = "id") Long countryId){
+        return awakenerService.getHumansList(countryId);
     }
 
     @GetMapping(value = "/getAwakenerInfo/{id}", produces = MediaType.APPLICATION_JSON_VALUE)

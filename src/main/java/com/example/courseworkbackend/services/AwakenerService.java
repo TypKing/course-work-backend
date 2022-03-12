@@ -30,18 +30,20 @@ public class AwakenerService {
     private EmployeeRepository employeeRepository;
 
 
-    public List<HumanR> getHumansList(){
+    public List<HumanR> getHumansList(Long id){
         List<Human> list = humanRepository.findAll();
         List<HumanR> listNew = new ArrayList<>();
         if (!list.isEmpty()){
             for (Human human : list) {
-                listNew.add(
-                        new HumanR()
-                                .setId(human.getId_human())
-                                .setFirstName(human.getFirstName())
-                                .setLastName(human.getLastName())
-                                .setBirthday(human.getBirthday())
-                                .setCountryName(human.getCountry().getName()));
+                if (human.getCountry().getId_country().equals(id)){
+                    listNew.add(
+                            new HumanR()
+                                    .setId(human.getId_human())
+                                    .setFirstName(human.getFirstName())
+                                    .setLastName(human.getLastName())
+                                    .setBirthday(human.getBirthday())
+                                    .setCountryName(human.getCountry().getName()));
+                }
             }
         }
         return listNew;
