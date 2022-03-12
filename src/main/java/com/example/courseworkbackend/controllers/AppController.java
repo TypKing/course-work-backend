@@ -73,6 +73,7 @@ public class AppController {
         if (awakener != null){
 
             return new AwakenerR()
+                    .setId(awakener.getId_awakener())
                     .setFirstName(awakener.getHuman().getFirstName())
                     .setLastName(awakener.getHuman().getLastName())
                     .setRank(awakener.getRank())
