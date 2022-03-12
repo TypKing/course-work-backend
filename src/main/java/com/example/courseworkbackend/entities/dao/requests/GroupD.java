@@ -8,5 +8,4 @@ import lombok.experimental.Accessors;
 @Accessors(chain = true)
 public class GroupD {
     private String name;
-    private Integer accessLevel;
 }

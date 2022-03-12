@@ -26,10 +26,10 @@ public class CoordinatorService {
     @Autowired
     private GroupRepository groupRepository;
 
-    public void addGroup(String name, Integer accessLevel){
+    public void addGroup(String name){
         Group newGroup = new Group();
-        newGroup.setAccessLevel(accessLevel).setName(name);
-        groupRepository.save(newGroup);
+        newGroup.setName(name);
+        groupRepository.save(newGroup).setAccessLevel(-1);
     }
 
     public List<GroupR> getGroupList(){

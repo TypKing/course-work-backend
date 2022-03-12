@@ -117,7 +117,7 @@ public class AppController {
     @PostMapping(value = "/createGroup", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public Map<String, String> createGroup(@RequestBody GroupD groupD){
         responseMap = new HashMap<>();
-        coordinatorService.addGroup(groupD.getName(), groupD.getAccessLevel());
+        coordinatorService.addGroup(groupD.getName());
         responseMap.put("result", "true");
         return responseMap;
     }
