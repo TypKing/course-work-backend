@@ -85,7 +85,7 @@ public class AuthController {
                     employeeD.getPositionId(),
                     employeeD.getExperience(),
                     employeeD.getAccessLevel(),
-                    new Timestamp(System.currentTimeMillis()),
+                    employeeD.getBirthday(),
                     null,
                     employeeD.getLogin(),
                     employeeD.getPassword()
@@ -96,7 +96,7 @@ public class AuthController {
                     employeeD.getPositionId(),
                     employeeD.getExperience(),
                     employeeD.getAccessLevel(),
-                    new Timestamp(System.currentTimeMillis()),
+                    employeeD.getBirthday(),
                     null,
                     employeeD.getLogin(),
                     employeeD.getPassword());
