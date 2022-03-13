@@ -4,6 +4,7 @@ import com.example.courseworkbackend.entities.Awakener;
 import com.example.courseworkbackend.entities.AwakenerInGroup;
 import com.example.courseworkbackend.entities.AwakenerInGroupKey;
 import com.example.courseworkbackend.entities.Group;
+import com.example.courseworkbackend.entities.dao.responses.AwakenerInGroupR;
 import com.example.courseworkbackend.entities.dao.responses.GroupR;
 import com.example.courseworkbackend.repositories.AwakenerInGroupRepository;
 import com.example.courseworkbackend.repositories.AwakenerRepository;
@@ -47,17 +48,31 @@ public class CoordinatorService {
         return listNew;
     }
 
+    public List<AwakenerInGroupR> getAwakenerInGroupList(){
+        List<AwakenerInGroup> list = awakenerInGroupRepository.findAll();
+        List<AwakenerInGroupR> listNew = new ArrayList<>();
+        if (!list.isEmpty()) {
+            for (AwakenerInGroup awakenerInGroup : list) {
+                listNew.add(
+                        new AwakenerInGroupR()
+                                .setGroupId(awakenerInGroup.getAwakenerInGroupKey().getGroup().getId_group())
+                                .setHumanId(awakenerInGroup.getAwakenerInGroupKey().getHuman().getId_human()));
+            }
+        }
+        return listNew;
+    }
+
     public void addAwakenerToGroup(Long id_human, Long id_group, Timestamp join_time) throws Exception {
         Group group = groupRepository.getById(id_group);
         Awakener awakener = awakenerRepository.getById(id_human);
 
-        if(awakenerInGroupRepository.findById(new AwakenerInGroupKey().setGroup_id(group).setHuman_id(awakener.getHuman())).isPresent()){
+        if(awakenerInGroupRepository.findById(new AwakenerInGroupKey().setGroup(group).setHuman(awakener.getHuman())).isPresent()){
             throw new Exception();
         }
 
         awakenerInGroupRepository.save(
                 new AwakenerInGroup().setAwakenerInGroupKey(
-                        new AwakenerInGroupKey().setGroup_id(group).setHuman_id(awakener.getHuman()))
+                        new AwakenerInGroupKey().setGroup(group).setHuman(awakener.getHuman()))
                         .setJoinTime(join_time).setEndTime(null));
     }
 
@@ -66,7 +81,7 @@ public class CoordinatorService {
         Awakener awakener = awakenerRepository.getById(id_human);
 
         AwakenerInGroup awakenerInGroup = awakenerInGroupRepository.getById(
-                new  AwakenerInGroupKey().setGroup_id(group).setHuman_id(awakener.getHuman()));
+                new  AwakenerInGroupKey().setGroup(group).setHuman(awakener.getHuman()));
         awakenerInGroup.setEndTime(new Timestamp(System.currentTimeMillis()));
 
         if(awakenerInGroup.getEndTime() != null){

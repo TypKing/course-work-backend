@@ -1,10 +1,7 @@
 package com.example.courseworkbackend.controllers;
 
 
-import com.example.courseworkbackend.entities.dao.responses.CitiesR;
-import com.example.courseworkbackend.entities.dao.responses.GroupR;
-import com.example.courseworkbackend.entities.dao.responses.PositionR;
-import com.example.courseworkbackend.entities.dao.responses.TypesR;
+import com.example.courseworkbackend.entities.dao.responses.*;
 import com.example.courseworkbackend.services.ComponentLoaderService;
 import com.example.courseworkbackend.services.CoordinatorService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +39,11 @@ public class ComponentLoadController {
     @GetMapping("/getTypesMap/{type}")
     public List<TypesR> getTypesMap(@PathVariable(value = "type") String type) {
         return componentLoaderService.getTypesMap(type);
+    }
+
+    @GetMapping("/getAwakenersInGroupMap")
+    public List<AwakenerInGroupR> getAwakenersInGroupMap() {
+        return coordinatorService.getAwakenerInGroupList();
     }
 
 
