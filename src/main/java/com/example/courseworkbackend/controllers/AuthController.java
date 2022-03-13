@@ -37,20 +37,18 @@ public class AuthController {
 
     private HashMap<String, String> responseMap;
 
-
     @PostMapping(value = "/auth", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public Map<String, String> userAuth(@RequestBody EmployeeD employeeD) throws NoSuchAlgorithmException {
         responseMap = new HashMap<>();
         System.out.println("Проверку проходит пользователь: " + employeeD.toString());
         User userWithSameLogin = userRepository.findUserByLogin(employeeD.getLogin());
-        if (userWithSameLogin != null && Objects.equals(userWithSameLogin.getPassword(), employeeService.enctyptPass(employeeD.getPassword()))){
+        if (userWithSameLogin != null && Objects.equals(userWithSameLogin.getPassword(), employeeService.enctyptPass(employeeD.getPassword()))) {
             responseMap.put("result", "true");
             responseMap.put("role", userWithSameLogin.getEmployee().getPosition().getPosition_name());
             responseMap.put("role_id", userWithSameLogin.getEmployee().getPosition().getPosition_id().toString());
             responseMap.put("country_id", userWithSameLogin.getEmployee().getHuman().getCountry().getId_country().toString());
             responseMap.put("access_level", userWithSameLogin.getEmployee().getAccessLevel().toString());
-        }
-        else{
+        } else {
             responseMap.put("result", "false");
             responseMap.put("role", null);
             responseMap.put("role_id", null);
@@ -59,15 +57,6 @@ public class AuthController {
         }
         return responseMap;
     }
-
-
-    /*
-    return {
-        @result
-        @user-login
-        @password-login
-    }
-     */
 
     @PostMapping(value = "/registration", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public Map<String, String> userRegistration(@RequestBody EmployeeD employeeD) throws NoSuchAlgorithmException {
@@ -91,7 +80,7 @@ public class AuthController {
                     employeeD.getPassword()
             );
         } else {
-           result = employeeService.addExistEmployee(
+            result = employeeService.addExistEmployee(
                     employeeD.getId_human(),
                     employeeD.getPositionId(),
                     employeeD.getExperience(),
@@ -105,12 +94,10 @@ public class AuthController {
         responseMap.put("login", employeeD.getLogin());
         responseMap.put("password", employeeD.getPassword());
         responseMap.put("position", employeeService.getPositionNameById(employeeD.getPositionId()));
-        responseMap.put("result", result? "true":"false");
+        responseMap.put("result", result ? "true" : "false");
         responseMap.put("access_level", employeeD.getAccessLevel().toString());
         return responseMap;
     }
-
-
 
 
 }

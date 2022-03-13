@@ -49,10 +49,9 @@ public class EmployeeService {
                 String login,
                 String password){
 
-        Human human = createHuman(firstName, lastName, birthday, id_country);
-        Employee employee = createEmployee(human, id_position, experience, accessLevel, startTime, endTime);
-
         if (userRepository.findUserByLogin(login) == null){
+            Human human = createHuman(firstName, lastName, birthday, id_country);
+            Employee employee = createEmployee(human, id_position, experience, accessLevel, startTime, endTime);
             userRepository.save(
                     new User()
                             .setLogin(login)
@@ -77,10 +76,10 @@ public class EmployeeService {
             String login,
             String password){
 
-        Human human = humanRepository.getById(id_human);
-        Employee employee = createEmployee(human, id_position, experience, accessLevel, startTime, endTime);
 
         if (userRepository.findUserByLogin(login) == null){
+            Human human = humanRepository.getById(id_human);
+            Employee employee = createEmployee(human, id_position, experience, accessLevel, startTime, endTime);
             userRepository.save(
                     new User()
                             .setLogin(login)
