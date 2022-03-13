@@ -251,6 +251,11 @@ public class AppController {
         return rcManagerService.getRCListByEmployeeId(id);
     }
 
+    @GetMapping(value = "/getListRiftByGroupAndCountry/{gid}/{cid}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<RiftR> getListRiftByGroupAndCountry(@PathVariable(value = "gid") Long groupId, @PathVariable(value = "cid") Long countryId) {
+        return registerService.getListRiftByGroupAndCountry(groupId, countryId);
+    }
+
 
 
 
