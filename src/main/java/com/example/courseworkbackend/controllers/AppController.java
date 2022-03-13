@@ -38,14 +38,14 @@ public class AppController {
     private HashMap<String, String> responseMap;
 
     @PostMapping(value = "/addAwakener", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public Map<String, String> userAuth(@RequestBody AwakenerD awakenerD){
+    public Map<String, String> userAuth(@RequestBody AwakenerD awakenerD) {
         responseMap = new HashMap<>();
         boolean result = false;
         System.out.println();
         System.out.println("Добавление проходит пробужденный: " + awakenerD.getFirstName());
         if (awakenerService.addAwakener(awakenerD.getFirstName(), awakenerD.getLastName(), awakenerD.getBirthday(),
                 awakenerD.getCountryId(), awakenerD.getGuildId(), awakenerD.getRank(), awakenerD.getExperience(),
-                awakenerD.getAwakeTime())){
+                awakenerD.getAwakeTime())) {
             result = true;
         }
         responseMap.put("result", Boolean.toString(result));
@@ -59,7 +59,7 @@ public class AppController {
             awakenerService.deleteAwakener(awakenerId);
             responseMap.put("result", "true");
             return responseMap;
-        } catch (Exception e){
+        } catch (Exception e) {
             responseMap.put("result", "false");
             return responseMap;
         }
@@ -68,15 +68,15 @@ public class AppController {
     }
 
     @GetMapping(value = "/getHumansInfo/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<HumanR> getHumansInfo(@PathVariable(value = "id") Long countryId){
+    public List<HumanR> getHumansInfo(@PathVariable(value = "id") Long countryId) {
         return awakenerService.getHumansList(countryId);
     }
 
     @GetMapping(value = "/getAwakenerInfo/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public AwakenerR getAwakenerInfoById(@PathVariable(value = "id") Long awakenerId){
+    public AwakenerR getAwakenerInfoById(@PathVariable(value = "id") Long awakenerId) {
         responseMap = new HashMap<>();
         Awakener awakener = awakenerService.getInfoById(awakenerId);
-        if (awakener != null){
+        if (awakener != null) {
 
             return new AwakenerR()
                     .setId(awakener.getId_awakener())
@@ -89,16 +89,14 @@ public class AppController {
                     .setCountryName(awakener.getHuman().getCountry().getName())
                     .setExperience(awakener.getExperience())
                     .setGuildId(awakener.getGuild().getId());
-        }
-        else return null;
+        } else return null;
     }
 
 
-
     @GetMapping(value = "/getAwakenersInfo/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<AwakenerR> getAwakenerList(@PathVariable(value = "id") Long countryId){
-        List <Awakener> awakeners = awakenerService.getAwakenersByCountry(countryId);
-        List <AwakenerR> response = new ArrayList<>();
+    public List<AwakenerR> getAwakenerList(@PathVariable(value = "id") Long countryId) {
+        List<Awakener> awakeners = awakenerService.getAwakenersByCountry(countryId);
+        List<AwakenerR> response = new ArrayList<>();
         for (Awakener awakener : awakeners) {
             response.add(new AwakenerR()
                     .setId(awakener.getId_awakener())
@@ -115,7 +113,7 @@ public class AppController {
     }
 
     @PostMapping(value = "/createGroup", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public Map<String, String> createGroup(@RequestBody GroupD groupD){
+    public Map<String, String> createGroup(@RequestBody GroupD groupD) {
         responseMap = new HashMap<>();
         coordinatorService.addGroup(groupD.getName());
         responseMap.put("result", "true");
@@ -124,26 +122,25 @@ public class AppController {
 
 
     @PostMapping(value = "/addAwakenerToGroup", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public Map<String, String> addAwakenerToGroup(@RequestBody AwakenerInGroupD awakenerInGroupD){
+    public Map<String, String> addAwakenerToGroup(@RequestBody AwakenerInGroupD awakenerInGroupD) {
         responseMap = new HashMap<>();
         try {
             coordinatorService.addAwakenerToGroup(awakenerInGroupD.getHuman_id(), awakenerInGroupD.getGroup_id(), new Timestamp(System.currentTimeMillis()));
             responseMap.put("result", "true");
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             responseMap.put("result", "false");
         }
         return responseMap;
     }
 
     @PostMapping(value = "/removeAwakenerFromGroup", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public Map<String, String> removeAwakenerFromGroup(@RequestBody AwakenerInGroupD awakenerInGroupD){
+    public Map<String, String> removeAwakenerFromGroup(@RequestBody AwakenerInGroupD awakenerInGroupD) {
         responseMap = new HashMap<>();
         try {
             coordinatorService.removeAwakenerFromGroup(awakenerInGroupD.getHuman_id(), awakenerInGroupD.getGroup_id());
             responseMap.put("result", "true");
             return responseMap;
-        }catch (Exception e){
+        } catch (Exception e) {
             responseMap.put("result", "false");
             return responseMap;
         }
@@ -151,7 +148,7 @@ public class AppController {
 
 
     @PostMapping(value = "/addArtifactOrMonsterType", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public Map<String, String> addArtifactOrMonsterType(@RequestBody TypesD typesD){
+    public Map<String, String> addArtifactOrMonsterType(@RequestBody TypesD typesD) {
         responseMap = new HashMap<>();
         registerService.setArtifactOrMonsterType(typesD.getName(), typesD.getDescription(), typesD.getClassTypeName());
         responseMap.put("result", "true");
@@ -159,7 +156,7 @@ public class AppController {
     }
 
     @PostMapping(value = "/addArtifact", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public Map<String, String> addArtifact(@RequestBody ArtifactD artifactD){
+    public Map<String, String> addArtifact(@RequestBody ArtifactD artifactD) {
         responseMap = new HashMap<>();
         registerService.addArtifact(artifactD.getId_type(), artifactD.getId_rift(), artifactD.getPrice());
         responseMap.put("result", "true");
@@ -167,7 +164,7 @@ public class AppController {
     }
 
     @PostMapping(value = "/addMonster", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public Map<String, String> addMonster(@RequestBody MonsterD monsterD){
+    public Map<String, String> addMonster(@RequestBody MonsterD monsterD) {
         responseMap = new HashMap<>();
         registerService.addMonster(monsterD.getId_type(), monsterD.getId_rift(), monsterD.getRank());
         responseMap.put("result", "true");
@@ -175,7 +172,7 @@ public class AppController {
     }
 
     @PostMapping(value = "/addRift", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public Map<String, String> addRift(@RequestBody RiftD riftD){
+    public Map<String, String> addRift(@RequestBody RiftD riftD) {
         responseMap = new HashMap<>();
         registerService.addRift(riftD.getCoordinateId(), riftD.getCountryId(), riftD.getRank(), riftD.getAccessLevel(),
                 riftD.getReward());
@@ -184,7 +181,7 @@ public class AppController {
     }
 
     @PostMapping(value = "/addRc", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public Map<String, String> addRc(@RequestBody RecyclingCenterD recyclingCenterD){
+    public Map<String, String> addRc(@RequestBody RecyclingCenterD recyclingCenterD) {
         responseMap = new HashMap<>();
         rcManagerService.addRc(recyclingCenterD.getCoordinateId(), recyclingCenterD.getTypeId(), recyclingCenterD.getCountryId(),
                 recyclingCenterD.getAccess_level());
@@ -200,7 +197,7 @@ public class AppController {
             rcManagerService.deleteRc(rcId);
             responseMap.put("result", "true");
             return responseMap;
-        } catch (Exception e){
+        } catch (Exception e) {
             responseMap.put("result", "false");
             return responseMap;
         }
@@ -208,12 +205,12 @@ public class AppController {
 
     @GetMapping(value = "/getRcInfo/{id_country}/{access_level}", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<RecyclingCenterR> getAwakenerList(@PathVariable(value = "id_country") Long countryId,
-                                                  @PathVariable(value = "access_level") Integer access_level){
+                                                  @PathVariable(value = "access_level") Integer access_level) {
         return rcManagerService.getRcList(countryId, access_level);
     }
 
     @GetMapping(value = "/getEmployee/{id_guild}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Employee> getEmployeeByGuild(@PathVariable(value = "id_guild") Long id_guild){
+    public List<Employee> getEmployeeByGuild(@PathVariable(value = "id_guild") Long id_guild) {
         return employeeService.getEmployees(id_guild);
     }
 
@@ -225,12 +222,15 @@ public class AppController {
             employeeService.deleteEmployee(id);
             responseMap.put("result", "true");
             return responseMap;
-        } catch (Exception e){
+        } catch (Exception e) {
             responseMap.put("result", "false");
             return responseMap;
         }
+    }
 
-
+    @GetMapping(value = "/getListMonsters/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<Monster> getHumansInfo(@PathVariable(value = "id") Long riftId) {
+        return registerService.getMonsterList(riftId);
     }
 
 

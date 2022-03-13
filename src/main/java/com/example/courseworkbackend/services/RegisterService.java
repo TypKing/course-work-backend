@@ -6,6 +6,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class RegisterService {
@@ -33,6 +35,10 @@ public class RegisterService {
                         .setAccessLevel(accessLevel)
                         .setReward(reward)
         );
+    }
+
+    public List<Monster> getMonsterList(Long riftId){
+        return monsterRepository.getListMonsters(riftId);
     }
 
 
