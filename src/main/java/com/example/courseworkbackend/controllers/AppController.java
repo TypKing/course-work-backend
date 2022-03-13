@@ -229,7 +229,7 @@ public class AppController {
     }
 
     @GetMapping(value = "/getListMonsters/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Monster> getHumansInfo(@PathVariable(value = "id") Long riftId) {
+    public List<Monster> getListMonsters(@PathVariable(value = "id") Long riftId) {
         return registerService.getMonsterList(riftId);
     }
 
