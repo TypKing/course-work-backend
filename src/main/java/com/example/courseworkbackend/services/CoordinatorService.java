@@ -1,11 +1,9 @@
 package com.example.courseworkbackend.services;
 
-import com.example.courseworkbackend.entities.Awakener;
-import com.example.courseworkbackend.entities.AwakenerInGroup;
-import com.example.courseworkbackend.entities.AwakenerInGroupKey;
-import com.example.courseworkbackend.entities.Group;
+import com.example.courseworkbackend.entities.*;
 import com.example.courseworkbackend.entities.dao.responses.AwakenerInGroupR;
 import com.example.courseworkbackend.entities.dao.responses.GroupR;
+import com.example.courseworkbackend.entities.dao.responses.HumanR;
 import com.example.courseworkbackend.repositories.AwakenerInGroupRepository;
 import com.example.courseworkbackend.repositories.AwakenerRepository;
 import com.example.courseworkbackend.repositories.GroupRepository;
@@ -43,6 +41,22 @@ public class CoordinatorService {
                                 .setId(group.getId_group())
                                 .setName(group.getName())
                                 .setAccessLevel(group.getAccessLevel()));
+            }
+        }
+        return listNew;
+    }
+
+    public List<GroupR> getListGroupsForAwakener(Long id){
+        List<Group> list = groupRepository.getListGroupByAwakener(id);
+        List<GroupR> listNew = new ArrayList<>();
+        if (!list.isEmpty()){
+            for (Group group : list) {
+                listNew.add(
+                        new GroupR()
+                                .setName(group.getName())
+                                .setId(group.getId_group())
+                                .setAccessLevel(group.getAccessLevel())
+                );
             }
         }
         return listNew;

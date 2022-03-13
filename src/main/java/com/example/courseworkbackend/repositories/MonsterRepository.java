@@ -18,5 +18,5 @@ public interface MonsterRepository extends JpaRepository<Monster, Long> {
 
 
     @Query(value = "select * from list_monsters(cast(? as bigint))", nativeQuery = true)
-    public List<Monster> getListMonsters(Long riftId);
+    List<Monster> getListMonsters(Long riftId);
 }

@@ -212,7 +212,6 @@ public class AppController {
         return employeeService.getEmployees(id_guild);
     }
 
-
     @DeleteMapping(value = "/deleteEmployee/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public Map<String, String> deleteEmployee(@PathVariable(value = "id") Long id) {
         responseMap = new HashMap<>();
@@ -254,6 +253,11 @@ public class AppController {
     @GetMapping(value = "/getListRiftByGroupAndCountry/{gid}/{cid}", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<RiftR> getListRiftByGroupAndCountry(@PathVariable(value = "gid") Long groupId, @PathVariable(value = "cid") Long countryId) {
         return registerService.getListRiftByGroupAndCountry(groupId, countryId);
+    }
+
+    @GetMapping(value = "/getListRiftByGroupAndCountry/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<GroupR> getListRiftByGroupAndCountry(@PathVariable(value = "id") Long id){
+        return coordinatorService.getListGroupsForAwakener(id);
     }
 
 

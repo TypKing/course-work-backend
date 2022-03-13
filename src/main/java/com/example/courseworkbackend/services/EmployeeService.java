@@ -131,8 +131,9 @@ public class EmployeeService {
     }
 
     public List<Employee> getEmployees(Long guild_id){
-        return employeeRepository.getEmployeeByGuild(
-                guildRepository.getById(guild_id));
+        return employeeRepository.getListEmployeeByCountry(guild_id);
+//        return employeeRepository.getEmployeeByGuild(
+//                guildRepository.getById(guild_id));
     }
 
 
