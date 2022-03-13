@@ -24,7 +24,7 @@ public class Rift {
     @JoinColumn(name = "id_coordinate")
     private Coordinate coordinate;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     private Country country;
     private Integer rank;
     private Integer accessLevel;

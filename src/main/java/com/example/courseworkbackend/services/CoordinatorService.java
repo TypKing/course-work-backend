@@ -56,7 +56,8 @@ public class CoordinatorService {
                 listNew.add(
                         new AwakenerInGroupR()
                                 .setGroupId(awakenerInGroup.getAwakenerInGroupKey().getGroup().getId_group())
-                                .setHumanId(awakenerInGroup.getAwakenerInGroupKey().getHuman().getId_human()));
+                                .setHumanId(awakenerInGroup.getAwakenerInGroupKey().getHuman().getId_human())
+                                .setEndTime(awakenerInGroup.getEndTime()));
             }
         }
         return listNew;
@@ -82,12 +83,11 @@ public class CoordinatorService {
 
         AwakenerInGroup awakenerInGroup = awakenerInGroupRepository.getById(
                 new  AwakenerInGroupKey().setGroup(group).setHuman(awakener.getHuman()));
-        awakenerInGroup.setEndTime(new Timestamp(System.currentTimeMillis()));
-
         if(awakenerInGroup.getEndTime() != null){
             throw new Exception();
         }
 
+        awakenerInGroup.setEndTime(new Timestamp(System.currentTimeMillis()));
 
         awakenerInGroupRepository.save(awakenerInGroup);
     }

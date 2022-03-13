@@ -17,6 +17,6 @@ public interface MonsterRepository extends JpaRepository<Monster, Long> {
     void updateMonsterType(@Param(value = "id") long id, @Param(value = "type")Types type);
 
 
-    @Query(value = "select * from list_monsters(?)", nativeQuery = true)
+    @Query(value = "select * from list_monsters(cast(? as bigint))", nativeQuery = true)
     public List<Monster> getListMonsters(Long riftId);
 }

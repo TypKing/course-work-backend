@@ -19,10 +19,10 @@ public class Monster {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id_monster;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     private Types types;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     private Rift detection_rift;
 
     private Integer rank;
