@@ -4,6 +4,7 @@ import com.example.courseworkbackend.entities.*;
 import com.example.courseworkbackend.entities.dao.requests.*;
 import com.example.courseworkbackend.entities.dao.responses.AwakenerR;
 import com.example.courseworkbackend.entities.dao.responses.HumanR;
+import com.example.courseworkbackend.entities.dao.responses.MonsterR;
 import com.example.courseworkbackend.entities.dao.responses.RecyclingCenterR;
 import com.example.courseworkbackend.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -229,7 +230,7 @@ public class AppController {
     }
 
     @GetMapping(value = "/getListMonsters/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Monster> getListMonsters(@PathVariable(value = "id") Long riftId) {
+    public List<MonsterR> getListMonsters(@PathVariable(value = "id") Long riftId) {
         return registerService.getMonsterList(riftId);
     }
 

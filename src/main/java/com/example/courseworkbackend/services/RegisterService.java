@@ -1,11 +1,14 @@
 package com.example.courseworkbackend.services;
 
 import com.example.courseworkbackend.entities.*;
+import com.example.courseworkbackend.entities.dao.responses.MonsterR;
+import com.example.courseworkbackend.entities.dao.responses.PositionR;
 import com.example.courseworkbackend.repositories.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -37,8 +40,19 @@ public class RegisterService {
         );
     }
 
-    public List<Monster> getMonsterList(Long riftId){
-        return monsterRepository.getListMonsters(riftId);
+    public List<MonsterR> getMonsterList(Long riftId){
+        List<Monster> list = monsterRepository.getListMonsters(riftId);
+        List<MonsterR> listN = new ArrayList<>();
+        if (!list.isEmpty()) {
+            for (Monster monster : list) {
+                listN.add(
+                        new MonsterR()
+                                .setMonsterId(monster.getId_monster())
+                                .setRank(monster.getRank())
+                                .setTypeName(monster.getTypes().getName()));
+            }
+        }
+        return listN;
     }
 
 
