@@ -236,7 +236,7 @@ public class AppController {
         return registerService.getArtifactList(riftId);
     }
 
-    @GetMapping(value = "/getListMaterialR/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/getListMaterial/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<MaterialR> getListMaterials(@PathVariable(value = "id") Long riftId) {
         return registerService.getMaterialList(riftId);
     }

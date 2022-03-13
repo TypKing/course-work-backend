@@ -20,7 +20,6 @@ public class Material {
     private Long id_material;
 
     @ManyToOne
-    @MapsId
     private Monster monster_drop;
 
     private String name;
