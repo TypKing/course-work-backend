@@ -1,10 +1,7 @@
 package com.example.courseworkbackend.services;
 
 import com.example.courseworkbackend.entities.*;
-import com.example.courseworkbackend.entities.dao.responses.ArtifactR;
-import com.example.courseworkbackend.entities.dao.responses.MaterialR;
-import com.example.courseworkbackend.entities.dao.responses.MonsterR;
-import com.example.courseworkbackend.entities.dao.responses.PositionR;
+import com.example.courseworkbackend.entities.dao.responses.*;
 import com.example.courseworkbackend.repositories.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,6 +40,26 @@ public class RegisterService {
                         .setReward(reward)
         );
     }
+
+    public List<RiftR> getRiftListByEmployeeId(Long id){
+        List<Rift> list = riftRepository.getListRiftByIdEmployeeAccessLevel(id);
+        List<RiftR> listN = new ArrayList<>();
+        if (!list.isEmpty()) {
+            for (Rift rift : list) {
+                listN.add(
+                        new RiftR()
+                                .setId(rift.getId())
+                                .setCoordinateX(rift.getCoordinate().getLatitude().toString())
+                                .setCoordinateY(rift.getCoordinate().getLongitude().toString())
+                                .setRank(rift.getRank())
+                                .setAccessLevel(rift.getAccessLevel())
+                                .setReward(rift.getReward())
+                );
+            }
+        }
+        return listN;
+    }
+
 
     public List<MonsterR> getMonsterList(Long riftId){
         List<Monster> list = monsterRepository.getListMonsters(riftId);

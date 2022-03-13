@@ -1,7 +1,9 @@
 package com.example.courseworkbackend.services;
 
 import com.example.courseworkbackend.entities.RecyclingCenter;
+import com.example.courseworkbackend.entities.Rift;
 import com.example.courseworkbackend.entities.dao.responses.RecyclingCenterR;
+import com.example.courseworkbackend.entities.dao.responses.RiftR;
 import com.example.courseworkbackend.repositories.CoordinateRepository;
 import com.example.courseworkbackend.repositories.CountryRepository;
 import com.example.courseworkbackend.repositories.RecyclingCenterRepository;
@@ -55,8 +57,29 @@ public class RcManagerService {
                     );
     }
 
+
+
     public void deleteRc(Long id){
         recyclingCenterRepository.deleteById(id);
+    }
+
+
+    public List<RecyclingCenterR> getRCListByEmployeeId(Long id){
+        List<RecyclingCenter> list = recyclingCenterRepository.getListRCByIdEmployeeAccessLevel(id);
+        List<RecyclingCenterR> listN = new ArrayList<>();
+        if (!list.isEmpty()) {
+            for (RecyclingCenter recyclingCenter : list) {
+                listN.add(
+                        new RecyclingCenterR()
+                                .setCoordinateName(recyclingCenter.getCoordinate().getLatitude().toString()
+                                        + ";" + recyclingCenter.getCoordinate().getLongitude().toString())
+                                .setCountryName(recyclingCenter.getCountry().getName())
+                                .setTypeName(recyclingCenter.getType().getName())
+                                .setAccessLevel(recyclingCenter.getAccess_level())
+                );
+            }
+        }
+        return listN;
     }
 
 }

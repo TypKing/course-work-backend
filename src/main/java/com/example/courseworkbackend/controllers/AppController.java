@@ -241,5 +241,17 @@ public class AppController {
         return registerService.getMaterialList(riftId);
     }
 
+    @GetMapping(value = "/getRiftListByEmployeeId/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<RiftR> getRiftsListByEmployeeId(@PathVariable(value = "id") Long id) {
+        return registerService.getRiftListByEmployeeId(id);
+    }
+
+    @GetMapping(value = "/getRCsListByEmployeeId/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<RecyclingCenterR> getRCsListByEmployeeId(@PathVariable(value = "id") Long id) {
+        return rcManagerService.getRCListByEmployeeId(id);
+    }
+
+
+
 
 }

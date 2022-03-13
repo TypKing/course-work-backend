@@ -11,10 +11,9 @@ import java.util.List;
 
 @Repository
 public interface RecyclingCenterRepository extends JpaRepository<RecyclingCenter, Long> {
-//
-//    @Modifying
-//    @Query("select c from RecyclingCenter c where c.access_level <= : access and c.country.id_country = :id")
-//    public List<RecyclingCenter> getRecyclingCenterById(@Param("id")Long id_country, @Param("access") Integer access);
 
-    public List<RecyclingCenter> getRecyclingCenterByCountry(Country country);
+    List<RecyclingCenter> getRecyclingCenterByCountry(Country country);
+
+    @Query(value = "select * from array_center_access(cast(? as bigint))", nativeQuery = true)
+    List<RecyclingCenter> getListRCByIdEmployeeAccessLevel(Long employeeId);
 }
