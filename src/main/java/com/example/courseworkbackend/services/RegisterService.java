@@ -1,6 +1,8 @@
 package com.example.courseworkbackend.services;
 
 import com.example.courseworkbackend.entities.*;
+import com.example.courseworkbackend.entities.dao.responses.ArtifactR;
+import com.example.courseworkbackend.entities.dao.responses.MaterialR;
 import com.example.courseworkbackend.entities.dao.responses.MonsterR;
 import com.example.courseworkbackend.entities.dao.responses.PositionR;
 import com.example.courseworkbackend.repositories.*;
@@ -27,6 +29,8 @@ public class RegisterService {
     private  CountryRepository countryRepository;
     @Autowired
     private  TypesRepository typesRepository;
+    @Autowired
+    private MaterialRepository materialRepository;
 
     public void addRift(Long id_coordinate, Long id_country, Integer rank,
                         Integer accessLevel, Integer reward) {
@@ -50,6 +54,36 @@ public class RegisterService {
                                 .setMonsterId(monster.getId_monster())
                                 .setRank(monster.getRank())
                                 .setTypeName(monster.getTypes().getName()));
+            }
+        }
+        return listN;
+    }
+
+    public List<ArtifactR> getArtifactList(Long riftId){
+        List<Artifact> list = artifactRepository.getListArtifacts(riftId);
+        List<ArtifactR> listN = new ArrayList<>();
+        if (!list.isEmpty()) {
+            for (Artifact artifact : list) {
+                listN.add(
+                        new ArtifactR()
+                                .setArtifactId(artifact.getId_artifact())
+                                .setPrice(artifact.getPrice())
+                                .setTypeName(artifact.getType().getName()));
+            }
+        }
+        return listN;
+    }
+
+    public List<MaterialR> getMaterialList(Long riftId){
+        List<Material> list = materialRepository.getListMaterials(riftId);
+        List<MaterialR> listN = new ArrayList<>();
+        if (!list.isEmpty()) {
+            for (Material material : list) {
+                listN.add(
+                        new MaterialR()
+                                .setMaterialId(material.getId_material())
+                                .setPrice(material.getPrice())
+                                .setName(material.getName()));
             }
         }
         return listN;

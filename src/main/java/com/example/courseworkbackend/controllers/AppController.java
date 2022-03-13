@@ -2,10 +2,7 @@ package com.example.courseworkbackend.controllers;
 
 import com.example.courseworkbackend.entities.*;
 import com.example.courseworkbackend.entities.dao.requests.*;
-import com.example.courseworkbackend.entities.dao.responses.AwakenerR;
-import com.example.courseworkbackend.entities.dao.responses.HumanR;
-import com.example.courseworkbackend.entities.dao.responses.MonsterR;
-import com.example.courseworkbackend.entities.dao.responses.RecyclingCenterR;
+import com.example.courseworkbackend.entities.dao.responses.*;
 import com.example.courseworkbackend.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -232,6 +229,16 @@ public class AppController {
     @GetMapping(value = "/getListMonsters/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<MonsterR> getListMonsters(@PathVariable(value = "id") Long riftId) {
         return registerService.getMonsterList(riftId);
+    }
+
+    @GetMapping(value = "/getListArtifact/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<ArtifactR> getListArtifacts(@PathVariable(value = "id") Long riftId) {
+        return registerService.getArtifactList(riftId);
+    }
+
+    @GetMapping(value = "/getListMaterialR/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<MaterialR> getListMaterials(@PathVariable(value = "id") Long riftId) {
+        return registerService.getMaterialList(riftId);
     }
 
 
