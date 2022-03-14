@@ -102,19 +102,23 @@ public class RegisterService {
     }
 
     public List<RiftStatusR> getListRiftStatusesByRiftId(Long id){
-        List<RiftStatus> list = riftStatusRepository.findAllById_rift(id);
+//        List<RiftStatus> list = riftStatusRepository.getAllById_rift(id);
+        List<RiftStatus> list = riftStatusRepository.findAll();
         List<RiftStatusR> riftN = new ArrayList<>();
         if (!list.isEmpty()) {
             for (RiftStatus riftStatus : list) {
-                riftN.add(
-                        new RiftStatusR()
-                                .setId(riftStatus.getId())
-                                .setGroupName(riftStatus.getGroup_id().getName())
-                                .setTime(riftStatus.getTime())
-                                .setOpenTime(riftStatus.getTime_to_open())
-                                .setResult(riftStatus.isResult())
-                                .setRiftCondition(riftStatus.isRift_condition())
-                );
+                if (riftStatus.getId_rift().getId().equals(id)){
+                    riftN.add(
+                            new RiftStatusR()
+                                    .setId(riftStatus.getId())
+                                    .setGroupName(riftStatus.getGroup_id().getName())
+                                    .setTime(riftStatus.getTime())
+                                    .setOpenTime(riftStatus.getTime_to_open())
+                                    .setResult(riftStatus.isResult())
+                                    .setRiftCondition(riftStatus.isRift_condition())
+                    );
+                }
+
             }
         }
         return riftN;

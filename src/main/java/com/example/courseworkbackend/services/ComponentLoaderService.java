@@ -1,14 +1,13 @@
 package com.example.courseworkbackend.services;
 
-import com.example.courseworkbackend.entities.ClassType;
-import com.example.courseworkbackend.entities.Country;
-import com.example.courseworkbackend.entities.Position;
-import com.example.courseworkbackend.entities.Types;
+import com.example.courseworkbackend.entities.*;
 import com.example.courseworkbackend.entities.dao.responses.CitiesR;
 import com.example.courseworkbackend.entities.dao.responses.PositionR;
+import com.example.courseworkbackend.entities.dao.responses.RiftR;
 import com.example.courseworkbackend.entities.dao.responses.TypesR;
 import com.example.courseworkbackend.repositories.CountryRepository;
 import com.example.courseworkbackend.repositories.PositionRepository;
+import com.example.courseworkbackend.repositories.RiftRepository;
 import com.example.courseworkbackend.repositories.TypesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,6 +26,28 @@ public class ComponentLoaderService {
 
     @Autowired
     private TypesRepository typesRepository;
+
+    @Autowired
+    private RiftRepository riftRepository;
+
+
+    public List<RiftR> getRiftsMap(){
+        List<Rift> list = riftRepository.findAll();
+        List<RiftR> listN = new ArrayList<>();
+        if (!list.isEmpty()){
+            for (Rift rift : list){
+                listN.add(new RiftR()
+                        .setId(rift.getId())
+                        .setCoordinateX(rift.getCoordinate().getLatitude().toString())
+                        .setCoordinateY(rift.getCoordinate().getLongitude().toString())
+                        .setRank(rift.getRank())
+                        .setAccessLevel(rift.getAccessLevel())
+                        .setReward(rift.getReward())
+                        .setCountryName(rift.getCountry().getName()));
+            }
+        }
+        return listN;
+    }
 
     public List<CitiesR> getCountriesMap() {
         List<Country> list = countryRepository.findAll();

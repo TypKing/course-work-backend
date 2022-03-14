@@ -8,5 +8,5 @@ import java.util.List;
 
 @Repository
 public interface RiftStatusRepository extends JpaRepository<RiftStatus, Long> {
-    List<RiftStatus> findAllById_rift(Long id);
+//    List<RiftStatus> getAllById_rift(Long id);
 }

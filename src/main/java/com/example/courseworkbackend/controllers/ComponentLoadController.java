@@ -1,6 +1,7 @@
 package com.example.courseworkbackend.controllers;
 
 
+import com.example.courseworkbackend.entities.Rift;
 import com.example.courseworkbackend.entities.dao.responses.*;
 import com.example.courseworkbackend.services.ComponentLoaderService;
 import com.example.courseworkbackend.services.CoordinatorService;
@@ -40,6 +41,9 @@ public class ComponentLoadController {
     public List<TypesR> getTypesMap(@PathVariable(value = "type") String type) {
         return componentLoaderService.getTypesMap(type);
     }
+    
+    @GetMapping("/getRiftMap")
+    public List<RiftR> getRiftsMap () {return componentLoaderService.getRiftsMap();}
 
     @GetMapping("/getAwakenersInGroupMap")
     public List<AwakenerInGroupR> getAwakenersInGroupMap() {
