@@ -51,7 +51,8 @@ public class EmployeeService {
 
         if (userRepository.findUserByLogin(login) == null){
             Human human = createHuman(firstName, lastName, birthday, id_country);
-            Employee employee = createEmployee(human, id_position, experience, accessLevel, startTime, endTime);
+            Guild guild = guildRepository.getById(id_country);
+            Employee employee = createEmployee(human, id_position, experience, accessLevel, startTime, endTime, guild);
             userRepository.save(
                     new User()
                             .setLogin(login)
@@ -74,16 +75,18 @@ public class EmployeeService {
             Timestamp startTime,
             Timestamp endTime,
             String login,
-            String password){
+            String password,
+            Long id_guild){
 
 
         if (userRepository.findUserByLogin(login) == null){
             Human human = humanRepository.getById(id_human);
-            Employee employee = createEmployee(human, id_position, experience, accessLevel, startTime, endTime);
+            Guild guild = guildRepository.getById(id_guild);
+            Employee employee = createEmployee(human, id_position, experience, accessLevel, startTime, endTime,guild);
             userRepository.save(
                     new User()
                             .setLogin(login)
-                            .setPassword(password)
+                            .setPassword(enctyptPass(password))
                             .setEmployee(employee));
             return true;
         }
@@ -116,17 +119,19 @@ public class EmployeeService {
             Integer experience,
             Integer accessLevel,
             Timestamp startTime,
-            Timestamp endTime
+            Timestamp endTime,
+            Guild guild
     ){
         Employee employee = new Employee()
                 .setHuman(human)
-                .setPosition(
+                .setPositionId(
                         positionRepository.getById(id_position)
                 )
                 .setExperience(experience)
                 .setAccessLevel(accessLevel)
                 .setStartTime(startTime)
-                .setEndTime(endTime);
+                .setEndTime(endTime)
+                .setGuild(guild);
         return  employeeRepository.save(employee);
     }
 

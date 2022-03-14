@@ -164,8 +164,13 @@ public class AppController {
     @PostMapping(value = "/addMonster", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public Map<String, String> addMonster(@RequestBody MonsterD monsterD) {
         responseMap = new HashMap<>();
-        registerService.addMonster(monsterD.getId_type(), monsterD.getId_rift(), monsterD.getRank());
-        responseMap.put("result", "true");
+        try {
+            registerService.addMonster(monsterD.getId_type(), monsterD.getId_rift(), monsterD.getRank());
+            responseMap.put("result", "true");
+        } catch (Exception e){
+            responseMap.put("result", "rank");
+        }
+
         return responseMap;
     }
 
@@ -225,6 +230,11 @@ public class AppController {
         }
     }
 
+    @GetMapping(value = "/getListRifts/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<RiftR> getListRifts(@PathVariable(value = "id") Long riftId) {
+        return registerService.getRiftList(riftId);
+    }
+
     @GetMapping(value = "/getListMonsters/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<MonsterR> getListMonsters(@PathVariable(value = "id") Long riftId) {
         return registerService.getMonsterList(riftId);
@@ -255,8 +265,8 @@ public class AppController {
         return registerService.getListRiftByGroupAndCountry(groupId, countryId);
     }
 
-    @GetMapping(value = "/getListRiftByGroupAndCountry/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<GroupR> getListRiftByGroupAndCountry(@PathVariable(value = "id") Long id){
+    @GetMapping(value = "/getListGroupsForAwakener/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<GroupR> getListGroupsForAwakener(@PathVariable(value = "id") Long id){
         return coordinatorService.getListGroupsForAwakener(id);
     }
 

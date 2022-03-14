@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Timestamp;
 import java.util.HashMap;
@@ -43,12 +42,14 @@ public class AuthController {
         System.out.println("Проверку проходит пользователь: " + employeeD.toString());
         User userWithSameLogin = userRepository.findUserByLogin(employeeD.getLogin());
         if (userWithSameLogin != null && Objects.equals(userWithSameLogin.getPassword(), employeeService.enctyptPass(employeeD.getPassword()))) {
+            responseMap.put("id",userWithSameLogin.getEmployee().getId_employee().toString());
             responseMap.put("result", "true");
-            responseMap.put("role", userWithSameLogin.getEmployee().getPosition().getPosition_name());
-            responseMap.put("role_id", userWithSameLogin.getEmployee().getPosition().getPosition_id().toString());
+            responseMap.put("role", userWithSameLogin.getEmployee().getPositionId().getPosition_name());
+            responseMap.put("role_id", userWithSameLogin.getEmployee().getPositionId().getPosition_id().toString());
             responseMap.put("country_id", userWithSameLogin.getEmployee().getHuman().getCountry().getId_country().toString());
             responseMap.put("access_level", userWithSameLogin.getEmployee().getAccessLevel().toString());
         } else {
+            responseMap.put("id",null);
             responseMap.put("result", "false");
             responseMap.put("role", null);
             responseMap.put("role_id", null);
@@ -74,7 +75,7 @@ public class AuthController {
                     employeeD.getPositionId(),
                     employeeD.getExperience(),
                     employeeD.getAccessLevel(),
-                    employeeD.getBirthday(),
+                    new Timestamp(System.currentTimeMillis()),
                     null,
                     employeeD.getLogin(),
                     employeeD.getPassword()
@@ -85,10 +86,11 @@ public class AuthController {
                     employeeD.getPositionId(),
                     employeeD.getExperience(),
                     employeeD.getAccessLevel(),
-                    employeeD.getBirthday(),
+                    new Timestamp(System.currentTimeMillis()),
                     null,
                     employeeD.getLogin(),
-                    employeeD.getPassword());
+                    employeeD.getPassword(),
+                    employeeD.getCountryId());
         }
 
         responseMap.put("login", employeeD.getLogin());

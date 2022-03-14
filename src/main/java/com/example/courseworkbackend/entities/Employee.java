@@ -24,7 +24,7 @@ public class Employee {
     private Human human;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    private Position position;
+    private Position positionId;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Guild guild;

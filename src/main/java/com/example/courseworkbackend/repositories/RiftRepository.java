@@ -15,4 +15,7 @@ public interface RiftRepository extends JpaRepository<Rift, Long> {
 
     @Query(value = "select * from array_rift_access(cast(? as bigint))", nativeQuery = true)
     List<Rift> getListRiftByIdEmployeeAccessLevel(Long employeeId);
+
+    @Query(value = "select * from list_monsters(cast(? as bigint))", nativeQuery = true)
+    List<Monster> getListMonsters(Long riftId);
 }

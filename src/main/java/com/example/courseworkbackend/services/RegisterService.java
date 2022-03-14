@@ -79,6 +79,26 @@ public class RegisterService {
         return listN;
     }
 
+    public List<RiftR> getRiftList(Long countryId){
+        List<Rift> list = riftRepository.findAll();
+        List<RiftR> riftN = new ArrayList<>();
+        if (!list.isEmpty()) {
+            for (Rift rift : list) {
+                if (rift.getCountry().getId_country().equals(countryId)){
+                    riftN.add(
+                            new RiftR()
+                                    .setId(rift.getId())
+                                    .setCoordinateX(rift.getCoordinate().getLatitude().toString())
+                                    .setCoordinateY(rift.getCoordinate().getLongitude().toString())
+                                    .setRank(rift.getRank())
+                                    .setAccessLevel(rift.getAccessLevel())
+                                    .setReward(rift.getReward()));
+                }
+            }
+        }
+        return riftN;
+    }
+
 
     public List<MonsterR> getMonsterList(Long riftId){
         List<Monster> list = monsterRepository.getListMonsters(riftId);
