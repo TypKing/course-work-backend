@@ -2,6 +2,7 @@ package com.example.courseworkbackend.entities;
 
 
 import lombok.*;
+import lombok.experimental.Accessors;
 
 import javax.persistence.*;
 
@@ -12,6 +13,7 @@ import javax.persistence.*;
 @Table(name = "coordinates")
 @NoArgsConstructor
 @AllArgsConstructor
+@Accessors(chain = true)
 public class Coordinate {
 
     @Id

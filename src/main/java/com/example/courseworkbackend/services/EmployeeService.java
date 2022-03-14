@@ -1,9 +1,8 @@
 package com.example.courseworkbackend.services;
 
-import com.example.courseworkbackend.entities.Employee;
-import com.example.courseworkbackend.entities.Guild;
-import com.example.courseworkbackend.entities.Human;
-import com.example.courseworkbackend.entities.User;
+import com.example.courseworkbackend.entities.*;
+import com.example.courseworkbackend.entities.dao.requests.CoordinateD;
+import com.example.courseworkbackend.entities.dao.responses.CoordinateR;
 import com.example.courseworkbackend.repositories.*;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
@@ -32,6 +31,8 @@ public class EmployeeService {
     private UserRepository userRepository;
     @Autowired
     private GuildRepository guildRepository;
+    @Autowired
+    private CoordinateRepository coordinateRepository;
 
 
     @SneakyThrows
@@ -168,6 +169,15 @@ public class EmployeeService {
         }
         return stringBuilder.toString();
 
+    }
+
+    public Long addCoordinate(CoordinateD coordinateD){
+        Coordinate coordinate = coordinateRepository.save(
+                new Coordinate()
+                        .setLatitude(coordinateD.getLatitude())
+                        .setLongitude(coordinateD.getLongitude())
+        );
+        return coordinate.getId_coordinate();
     }
 
 }

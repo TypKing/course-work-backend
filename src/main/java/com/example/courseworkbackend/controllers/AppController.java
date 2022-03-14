@@ -35,6 +35,23 @@ public class AppController {
 
     private HashMap<String, String> responseMap;
 
+
+    /*
+        Добавление координат в БД
+     */
+
+    @PostMapping(value = "/addCoordinate", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public Map<String, String> addCoordinate(@RequestBody CoordinateD coordinateD){
+        responseMap = new HashMap<>();
+        try {
+            responseMap.put("id", employeeService.addCoordinate(coordinateD).toString());
+        }catch (Exception e){
+            responseMap.put("id", null);
+        }
+        return responseMap;
+    }
+
+
     @PostMapping(value = "/addAwakener", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public Map<String, String> userAuth(@RequestBody AwakenerD awakenerD) {
         responseMap = new HashMap<>();
@@ -269,6 +286,17 @@ public class AppController {
     public List<GroupR> getListGroupsForAwakener(@PathVariable(value = "id") Long id){
         return coordinatorService.getListGroupsForAwakener(id);
     }
+
+    /*
+        Список статусов определенного разлома
+     */
+
+    @GetMapping(value = "/getListRiftStatusesByRiftId/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<RiftStatusR> getListRiftStatusesByRiftId(@PathVariable(value = "id") Long id){
+        return registerService.getListRiftStatusesByRiftId(id);
+    }
+
+
 
 
 

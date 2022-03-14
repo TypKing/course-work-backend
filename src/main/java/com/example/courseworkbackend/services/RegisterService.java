@@ -28,6 +28,8 @@ public class RegisterService {
     private  TypesRepository typesRepository;
     @Autowired
     private MaterialRepository materialRepository;
+    @Autowired
+    private RiftStatusRepository riftStatusRepository;
 
     public void addRift(Long id_coordinate, Long id_country, Integer rank,
                         Integer accessLevel, Integer reward) {
@@ -94,6 +96,25 @@ public class RegisterService {
                                     .setAccessLevel(rift.getAccessLevel())
                                     .setReward(rift.getReward()));
                 }
+            }
+        }
+        return riftN;
+    }
+
+    public List<RiftStatusR> getListRiftStatusesByRiftId(Long id){
+        List<RiftStatus> list = riftStatusRepository.findAllById_rift(id);
+        List<RiftStatusR> riftN = new ArrayList<>();
+        if (!list.isEmpty()) {
+            for (RiftStatus riftStatus : list) {
+                riftN.add(
+                        new RiftStatusR()
+                                .setId(riftStatus.getId())
+                                .setGroupName(riftStatus.getGroup_id().getName())
+                                .setTime(riftStatus.getTime())
+                                .setOpenTime(riftStatus.getTime_to_open())
+                                .setResult(riftStatus.isResult())
+                                .setRiftCondition(riftStatus.isRift_condition())
+                );
             }
         }
         return riftN;
