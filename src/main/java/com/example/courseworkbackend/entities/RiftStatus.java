@@ -1,6 +1,7 @@
 package com.example.courseworkbackend.entities;
 
 import lombok.*;
+import lombok.experimental.Accessors;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
@@ -12,6 +13,7 @@ import java.sql.Timestamp;
 @Table(name = "Rifts_status")
 @NoArgsConstructor
 @AllArgsConstructor
+@Accessors(chain = true)
 public class RiftStatus {
 
     @Id

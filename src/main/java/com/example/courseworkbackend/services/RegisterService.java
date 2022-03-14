@@ -3,12 +3,14 @@ package com.example.courseworkbackend.services;
 import com.example.courseworkbackend.entities.*;
 import com.example.courseworkbackend.entities.dao.requests.MaterialD;
 import com.example.courseworkbackend.entities.dao.requests.MonsterD;
+import com.example.courseworkbackend.entities.dao.requests.RiftStatusD;
 import com.example.courseworkbackend.entities.dao.responses.*;
 import com.example.courseworkbackend.repositories.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,6 +34,8 @@ public class RegisterService {
     private MaterialRepository materialRepository;
     @Autowired
     private RiftStatusRepository riftStatusRepository;
+    @Autowired
+    private GroupRepository groupRepository;
 
     public void addRift(Long id_coordinate, Long id_country, Integer rank,
                         Integer accessLevel, Integer reward) {
@@ -132,6 +136,19 @@ public class RegisterService {
                         .setName(materialD.getName())
                         .setPrice(materialD.getPrice())
                         .setMonster_drop(monsterRepository.getById(materialD.getMonsterId()))
+        );
+    }
+
+    public void addStatusRift(RiftStatusD riftStatusD){
+        riftStatusRepository.save(
+                new RiftStatus()
+                        .setGroup_id(groupRepository.getById(riftStatusD.getGroupId()))
+                        .setId_rift(riftRepository.getById(riftStatusD.getRiftId()))
+                        .setResult(riftStatusD.isResult())
+                        .setTime_to_open(riftStatusD.getOpenTime())
+                        .setRift_condition(riftStatusD.isFirstCondition())
+                        .setTime(new Timestamp(System.currentTimeMillis()))
+
         );
     }
 
