@@ -1,6 +1,8 @@
 package com.example.courseworkbackend.services;
 
 import com.example.courseworkbackend.entities.*;
+import com.example.courseworkbackend.entities.dao.requests.MaterialD;
+import com.example.courseworkbackend.entities.dao.requests.MonsterD;
 import com.example.courseworkbackend.entities.dao.responses.*;
 import com.example.courseworkbackend.repositories.*;
 import lombok.RequiredArgsConstructor;
@@ -122,6 +124,15 @@ public class RegisterService {
             }
         }
         return riftN;
+    }
+
+    public void addMaterial(MaterialD materialD){
+        materialRepository.save(
+                new Material()
+                        .setName(materialD.getName())
+                        .setPrice(materialD.getPrice())
+                        .setMonster_drop(monsterRepository.getById(materialD.getMonsterId()))
+        );
     }
 
 

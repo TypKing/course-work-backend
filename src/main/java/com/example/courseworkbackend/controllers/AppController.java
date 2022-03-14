@@ -51,6 +51,38 @@ public class AppController {
         return responseMap;
     }
 
+    /*
+        Добавление нового материала
+     */
+
+    @PostMapping(value = "addMaterial", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public Map<String, String> addMaterials(@RequestBody MaterialD materialD){
+        responseMap = new HashMap<>();
+        try {
+            registerService.addMaterial(materialD);
+            responseMap.put("result", "true");
+        }catch (Exception e){
+            responseMap.put("result", "false");
+        }
+        return responseMap;
+    }
+
+    /*
+        Добавление нового статуса разлому
+     */
+
+//    @PostMapping(value = "addRistStatus", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+//    public Map<String, String> addRiftStatus(@RequestBody  materialD){
+//        responseMap = new HashMap<>();
+//        try {
+//            registerService.addMaterial(materialD);
+//            responseMap.put("result", "true");
+//        }catch (Exception e){
+//            responseMap.put("result", "false");
+//        }
+//        return responseMap;
+//    }
+
 
     @PostMapping(value = "/addAwakener", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public Map<String, String> userAuth(@RequestBody AwakenerD awakenerD) {
