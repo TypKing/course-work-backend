@@ -78,6 +78,7 @@ public class AppController {
             registerService.addStatusRift(riftStatusD);
             responseMap.put("result", "true");
         }catch (Exception e){
+            e.printStackTrace();
             responseMap.put("result", "false");
         }
         return responseMap;

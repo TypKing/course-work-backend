@@ -81,6 +81,7 @@ public class RegisterService {
                                 .setRank(rift.getRank())
                                 .setAccessLevel(rift.getAccessLevel())
                                 .setReward(rift.getReward())
+                                .setCountryName(rift.getCountry().getName())
                 );
             }
         }
