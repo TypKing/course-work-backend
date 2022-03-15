@@ -87,16 +87,24 @@ public class AppController {
 
     @PostMapping(value = "/addAwakener", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public Map<String, String> userAuth(@RequestBody AwakenerD awakenerD) {
-        responseMap = new HashMap<>();
-        boolean result = false;
-        System.out.println();
-        System.out.println("Добавление проходит пробужденный: " + awakenerD.getFirstName());
-        if (awakenerService.addAwakener(awakenerD.getFirstName(), awakenerD.getLastName(), awakenerD.getBirthday(),
-                awakenerD.getCountryId(), awakenerD.getGuildId(), awakenerD.getRank(), awakenerD.getExperience(),
-                awakenerD.getAwakeTime())) {
-            result = true;
+        try {
+            responseMap = new HashMap<>();
+            boolean result = false;
+            System.out.println();
+            System.out.println("Добавление проходит пробужденный: " + awakenerD.getFirstName());
+            if (awakenerService.addAwakener(awakenerD.getFirstName(), awakenerD.getLastName(), awakenerD.getBirthday(),
+                    awakenerD.getCountryId(), awakenerD.getGuildId(), awakenerD.getRank(), awakenerD.getExperience(),
+                    awakenerD.getAwakeTime())) {
+                result = true;
+            }
+            responseMap.put("result", Boolean.toString(result));
+        } catch (IllegalArgumentException e1) {
+            responseMap.put("result", "Некорректно заполнены поля");
+        } catch (Exception e2){
+            e2.printStackTrace();
+            responseMap.put("result", "false");
         }
-        responseMap.put("result", Boolean.toString(result));
+
         return responseMap;
     }
 

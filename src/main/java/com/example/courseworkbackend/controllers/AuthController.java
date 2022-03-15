@@ -62,42 +62,47 @@ public class AuthController {
     @PostMapping(value = "/registration", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public Map<String, String> userRegistration(@RequestBody EmployeeD employeeD) throws NoSuchAlgorithmException {
         responseMap = new HashMap<>();
-        System.out.println("Проверку проходит регистрацию: " + employeeD.getLogin());
-        System.out.println(employeeD.toString());
-        boolean result = false;
+        try {
+            System.out.println("Проверку проходит регистрацию: " + employeeD.getLogin());
+            System.out.println(employeeD.toString());
+            boolean result = false;
 
-        if (employeeD.getId_human() == null) {
-            result = employeeService.addNewEmployee(
-                    employeeD.getFirstName(),
-                    employeeD.getLastName(),
-                    employeeD.getBirthday(),
-                    employeeD.getCountryId(),
-                    employeeD.getPositionId(),
-                    employeeD.getExperience(),
-                    employeeD.getAccessLevel(),
-                    new Timestamp(System.currentTimeMillis()),
-                    null,
-                    employeeD.getLogin(),
-                    employeeD.getPassword()
-            );
-        } else {
-            result = employeeService.addExistEmployee(
-                    employeeD.getId_human(),
-                    employeeD.getPositionId(),
-                    employeeD.getExperience(),
-                    employeeD.getAccessLevel(),
-                    new Timestamp(System.currentTimeMillis()),
-                    null,
-                    employeeD.getLogin(),
-                    employeeD.getPassword(),
-                    employeeD.getCountryId());
+            if (employeeD.getId_human() == null) {
+                result = employeeService.addNewEmployee(
+                        employeeD.getFirstName(),
+                        employeeD.getLastName(),
+                        employeeD.getBirthday(),
+                        employeeD.getCountryId(),
+                        employeeD.getPositionId(),
+                        employeeD.getExperience(),
+                        employeeD.getAccessLevel(),
+                        new Timestamp(System.currentTimeMillis()),
+                        null,
+                        employeeD.getLogin(),
+                        employeeD.getPassword()
+                );
+            } else {
+                result = employeeService.addExistEmployee(
+                        employeeD.getId_human(),
+                        employeeD.getPositionId(),
+                        employeeD.getExperience(),
+                        employeeD.getAccessLevel(),
+                        new Timestamp(System.currentTimeMillis()),
+                        null,
+                        employeeD.getLogin(),
+                        employeeD.getPassword(),
+                        employeeD.getCountryId());
+            }
+
+            responseMap.put("login", employeeD.getLogin());
+            responseMap.put("password", employeeD.getPassword());
+            responseMap.put("position", employeeService.getPositionNameById(employeeD.getPositionId()));
+            responseMap.put("result", result ? "true" : "false");
+            responseMap.put("access_level", employeeD.getAccessLevel().toString());
+        } catch (Exception e){
+            responseMap.put("result", "false");
         }
 
-        responseMap.put("login", employeeD.getLogin());
-        responseMap.put("password", employeeD.getPassword());
-        responseMap.put("position", employeeService.getPositionNameById(employeeD.getPositionId()));
-        responseMap.put("result", result ? "true" : "false");
-        responseMap.put("access_level", employeeD.getAccessLevel().toString());
         return responseMap;
     }
 
