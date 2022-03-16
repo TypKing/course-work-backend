@@ -78,7 +78,6 @@ public class AppController {
             registerService.addStatusRift(riftStatusD);
             responseMap.put("result", "true");
         }catch (Exception e){
-            e.printStackTrace();
             responseMap.put("result", "false");
         }
         return responseMap;
@@ -91,8 +90,8 @@ public class AppController {
             responseMap = new HashMap<>();
             boolean result = false;
             System.out.println();
-            System.out.println("Добавление проходит пробужденный: " + awakenerD.getFirstName());
-            if (awakenerService.addAwakener(awakenerD.getFirstName(), awakenerD.getLastName(), awakenerD.getBirthday(),
+            System.out.println("Добавление проходит пробужденный: " + awakenerD.getFirstName().trim());
+            if (awakenerService.addAwakener(awakenerD.getFirstName().trim(), awakenerD.getLastName().trim(), awakenerD.getBirthday(),
                     awakenerD.getCountryId(), awakenerD.getGuildId(), awakenerD.getRank(), awakenerD.getExperience(),
                     awakenerD.getAwakeTime())) {
                 result = true;
@@ -101,7 +100,6 @@ public class AppController {
         } catch (IllegalArgumentException e1) {
             responseMap.put("result", "Некорректно заполнены поля");
         } catch (Exception e2){
-            e2.printStackTrace();
             responseMap.put("result", "false");
         }
 
@@ -170,9 +168,14 @@ public class AppController {
 
     @PostMapping(value = "/createGroup", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public Map<String, String> createGroup(@RequestBody GroupD groupD) {
-        responseMap = new HashMap<>();
-        coordinatorService.addGroup(groupD.getName());
-        responseMap.put("result", "true");
+        try {
+            responseMap = new HashMap<>();
+            coordinatorService.addGroup(groupD.getName().trim());
+            responseMap.put("result", "true");
+        }catch (Exception e){
+            responseMap.put("result", "false");
+        }
+
         return responseMap;
     }
 
@@ -205,17 +208,27 @@ public class AppController {
 
     @PostMapping(value = "/addArtifactOrMonsterType", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public Map<String, String> addArtifactOrMonsterType(@RequestBody TypesD typesD) {
-        responseMap = new HashMap<>();
-        registerService.setArtifactOrMonsterType(typesD.getName(), typesD.getDescription(), typesD.getClassTypeName());
-        responseMap.put("result", "true");
+        try {
+            responseMap = new HashMap<>();
+            registerService.setArtifactOrMonsterType(typesD.getName().trim(), typesD.getDescription().trim(), typesD.getClassTypeName().trim());
+            responseMap.put("result", "true");
+        }catch (Exception e){
+            responseMap.put("result","false");
+        }
+
         return responseMap;
     }
 
     @PostMapping(value = "/addArtifact", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public Map<String, String> addArtifact(@RequestBody ArtifactD artifactD) {
-        responseMap = new HashMap<>();
-        registerService.addArtifact(artifactD.getId_type(), artifactD.getId_rift(), artifactD.getPrice());
-        responseMap.put("result", "true");
+        try {
+            responseMap = new HashMap<>();
+            registerService.addArtifact(artifactD.getId_type(), artifactD.getId_rift(), artifactD.getPrice());
+            responseMap.put("result", "true");
+        }catch (Exception e){
+            responseMap.put("result", "false");
+        }
+
         return responseMap;
     }
 
@@ -234,19 +247,28 @@ public class AppController {
 
     @PostMapping(value = "/addRift", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public Map<String, String> addRift(@RequestBody RiftD riftD) {
-        responseMap = new HashMap<>();
-        registerService.addRift(riftD.getCoordinateId(), riftD.getCountryId(), riftD.getRank(), riftD.getAccessLevel(),
-                riftD.getReward());
-        responseMap.put("result", "true");
+        try {
+            responseMap = new HashMap<>();
+            registerService.addRift(riftD.getCoordinateId(), riftD.getCountryId(), riftD.getRank(), riftD.getAccessLevel(),
+                    riftD.getReward());
+            responseMap.put("result", "true");
+        }catch (Exception e){
+            responseMap.put("result", "false");
+        }
         return responseMap;
     }
 
     @PostMapping(value = "/addRc", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public Map<String, String> addRc(@RequestBody RecyclingCenterD recyclingCenterD) {
-        responseMap = new HashMap<>();
-        rcManagerService.addRc(recyclingCenterD.getCoordinateId(), recyclingCenterD.getTypeId(), recyclingCenterD.getCountryId(),
-                recyclingCenterD.getAccess_level());
-        responseMap.put("result", "true");
+        try {
+            responseMap = new HashMap<>();
+            rcManagerService.addRc(recyclingCenterD.getCoordinateId(), recyclingCenterD.getTypeId(), recyclingCenterD.getCountryId(),
+                    recyclingCenterD.getAccess_level());
+            responseMap.put("result", "true");
+        }catch (Exception e){
+            responseMap.put("result", "false");
+        }
+
         return responseMap;
     }
 

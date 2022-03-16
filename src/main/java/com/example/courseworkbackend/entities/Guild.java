@@ -1,8 +1,10 @@
 package com.example.courseworkbackend.entities;
 
 import lombok.*;
+import org.jetbrains.annotations.NotNull;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
 
 @Entity
 @Getter
@@ -21,6 +23,7 @@ public class Guild {
     @MapsId
     @JoinColumn(name = "id_country")
     private Country country;
+    @NotNull
     private String name;
 
 }

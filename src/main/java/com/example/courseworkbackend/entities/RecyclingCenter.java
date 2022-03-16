@@ -3,8 +3,10 @@ package com.example.courseworkbackend.entities;
 
 import lombok.*;
 import lombok.experimental.Accessors;
+import org.jetbrains.annotations.NotNull;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
 
 @Entity
 @Getter
@@ -26,6 +28,7 @@ public class RecyclingCenter {
     private Coordinate coordinate;
 
     @ManyToOne
+    @NotNull
     private Types type;
 
     /*

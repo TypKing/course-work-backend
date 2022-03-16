@@ -69,7 +69,6 @@ public class AwakenerService {
 //        if (employeeRepository.findByHuman(human) != null)
 //            return false;
 //        else{
-            humanRepository.save(human);
             awakenerRepository.save(
                     new Awakener()
                             .setHuman(human)
@@ -78,6 +77,8 @@ public class AwakenerService {
                             .setExperience(experience)
                             .setAwakeTime(awakeTime)
             );
+            humanRepository.save(human);
+
             return true;
         }
 

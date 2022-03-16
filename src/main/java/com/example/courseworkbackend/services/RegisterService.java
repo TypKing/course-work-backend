@@ -118,7 +118,7 @@ public class RegisterService {
                     riftN.add(
                             new RiftStatusR()
                                     .setId(riftStatus.getId())
-                                    .setGroupName(riftStatus.getGroup_id().getName())
+                                    .setGroupName(riftStatus.getGroup_id() == null? "*не назначена*" : riftStatus.getGroup_id().getName())
                                     .setTime(riftStatus.getTime())
                                     .setOpenTime(riftStatus.getTime_to_open())
                                     .setResult(riftStatus.isResult())
@@ -143,7 +143,7 @@ public class RegisterService {
     public void addStatusRift(RiftStatusD riftStatusD){
         riftStatusRepository.save(
                 new RiftStatus()
-                        .setGroup_id(groupRepository.getById(riftStatusD.getGroupId()))
+                        .setGroup_id(riftStatusD.getGroupId() == null ? null :  groupRepository.getById(riftStatusD.getGroupId()))
                         .setId_rift(riftRepository.getById(riftStatusD.getRiftId()))
                         .setResult(riftStatusD.isResult())
                         .setTime_to_open(riftStatusD.getOpenTime())

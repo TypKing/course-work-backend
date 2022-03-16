@@ -3,6 +3,7 @@ package com.example.courseworkbackend.entities;
 
 import lombok.*;
 import lombok.experimental.Accessors;
+import org.jetbrains.annotations.NotNull;
 
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
@@ -21,7 +22,9 @@ public class AwakenerInGroup {
 
     @EmbeddedId
     private AwakenerInGroupKey awakenerInGroupKey;
+    @NotNull
     private Timestamp joinTime;
+
     private Timestamp endTime;
 
 }

@@ -69,8 +69,8 @@ public class AuthController {
 
             if (employeeD.getId_human() == null) {
                 result = employeeService.addNewEmployee(
-                        employeeD.getFirstName(),
-                        employeeD.getLastName(),
+                        employeeD.getFirstName().trim(),
+                        employeeD.getLastName().trim(),
                         employeeD.getBirthday(),
                         employeeD.getCountryId(),
                         employeeD.getPositionId(),
@@ -78,8 +78,8 @@ public class AuthController {
                         employeeD.getAccessLevel(),
                         new Timestamp(System.currentTimeMillis()),
                         null,
-                        employeeD.getLogin(),
-                        employeeD.getPassword()
+                        employeeD.getLogin().trim(),
+                        employeeD.getPassword().trim()
                 );
             } else {
                 result = employeeService.addExistEmployee(
@@ -89,8 +89,8 @@ public class AuthController {
                         employeeD.getAccessLevel(),
                         new Timestamp(System.currentTimeMillis()),
                         null,
-                        employeeD.getLogin(),
-                        employeeD.getPassword(),
+                        employeeD.getLogin().trim(),
+                        employeeD.getPassword().trim(),
                         employeeD.getCountryId());
             }
 
